@@ -1,0 +1,22 @@
+{
+  "primary": {
+    "color": "#F78C64 ",
+    "onColor": "#FFF"
+  },
+  "secondary": {
+    "color": "#044E65",
+    "onColor": "#FFF"
+  },
+  "background": {
+    "color": "#FFF",
+    "onColor": "#000"
+  },
+  "color_codes": {
+    "dark_grey": "#ADACA8",
+    "light_grey": "#E0E0E0",
+    "white": "#FFF",
+    "black": "#000"
+  },
+  "error": "#E50C0C",
+  "success": "#0DB728"
+}
