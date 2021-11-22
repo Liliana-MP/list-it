@@ -16,6 +16,7 @@ export const ButtonContainer = styled.View`
 
 export const ButtonText = styled.Text<ButtonTextProps>`
   color: ${(props) => props.textColor};
+  font-size: 20px;
 `;
 
 export const RegularButton = styled.TouchableOpacity<ButtonProps>`
@@ -25,6 +26,7 @@ export const RegularButton = styled.TouchableOpacity<ButtonProps>`
   padding: 10px;
   align-items: center;
   width: 300px;
+  height: 50px;
 `;
 
 export const AddButton = styled.TouchableOpacity<ButtonProps>`
