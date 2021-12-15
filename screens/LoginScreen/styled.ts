@@ -5,10 +5,12 @@ import theme from "../../theme";
 export const Container = styled.View`
   flex: 1;
   align-items: center;
+  background-color: blue;
 `;
 
 export const InputFieldContainer = styled.View`
-  margin: 50px;
+  margin-top: 40px;
+  margin-bottom: 20px;
 `;
 
 export const VideoBackground = styled(Video)`
@@ -20,7 +22,13 @@ export const VideoBackground = styled(Video)`
 `;
 
 export const Title = styled.Text`
-  margin: 20px;
-  font-size: 70px;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  font-size: 100px;
   color: ${theme.secondary.color};
+  font-family: "Satisfy-Regular";
+`;
+
+export const ButtonContainer = styled.View`
+  margin: 100px;
 `;

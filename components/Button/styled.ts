@@ -20,7 +20,7 @@ export const ButtonText = styled.Text<ButtonTextProps>`
 `;
 
 export const RegularButton = styled.TouchableOpacity<ButtonProps>`
-  margin: 5px 20px;
+  margin: 5px 0px;
   border-radius: 5px;
   background-color: ${(props) => props.color};
   padding: 10px;

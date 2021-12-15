@@ -7,6 +7,8 @@ import * as S from "./styled";
 import InputField from "../../components/InputField";
 import theme from "../../theme";
 import { Text } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Textbutton from "../../components/TextButton/TextButton";
 
 type LoginScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -24,26 +26,35 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
         resizeMode="cover"
       />
 
-      <S.Title>List It</S.Title>
+      <S.Title> List It </S.Title>
       <S.InputFieldContainer>
         <InputField placeHolder="Email" />
         <InputField placeHolder="Password" />
       </S.InputFieldContainer>
-
-      <Button
-        type="Regular"
-        title="Sign in"
-        color={theme.primary.color}
-        textColor={theme.primary.onColor}
-        onPress={() => navigation.navigate(ScreenRoute.HOME_SCREEN)}
-      />
-      <Button
-        type="Regular"
-        title="Sign up"
-        color={theme.secondary.color}
-        textColor={theme.secondary.onColor}
-        onPress={() => navigation.navigate(ScreenRoute.SIGNUP_SCREEN)}
-      />
+      <S.ButtonContainer>
+        <BouncyCheckbox
+          onPress={(isChecked: boolean) => {}}
+          text="Keep me logged in"
+          textStyle={{ textDecorationLine: "none" }}
+          fillColor={theme.primary.color}
+          style={{ marginBottom: 15 }}
+        />
+        <Button
+          type="Regular"
+          title="Sign in"
+          color={theme.primary.color}
+          textColor={theme.primary.onColor}
+          onPress={() => navigation.navigate(ScreenRoute.HOME_SCREEN)}
+        />
+        <Button
+          type="Regular"
+          title="Sign up"
+          color={theme.secondary.color}
+          textColor={theme.secondary.onColor}
+          onPress={() => navigation.navigate(ScreenRoute.SIGNUP_SCREEN)}
+        />
+        <Textbutton buttonText="Forgot Password" />
+      </S.ButtonContainer>
     </S.Container>
   );
 };
