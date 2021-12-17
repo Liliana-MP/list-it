@@ -10,3 +10,9 @@ export const InputField = styled.TextInput`
   width: 300px;
   ${boxShadow}
 `;
+
+export const PasswordField = styled.TextInput`
+  flex: 1;
+  padding-left: 10px;
+  background-color: white;
+`;

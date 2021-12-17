@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { ImageBackground, Text, TouchableOpacity } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
@@ -14,12 +14,18 @@ type HomeScreenProps = NativeStackScreenProps<
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   return (
     <S.Container>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(ScreenRoute.LIST_SETTINGS_SCREEN)}
+      <ImageBackground
+        source={require("../../assets/images/marble-white.jpg")}
+        resizeMode="cover"
+        style={{ flex: 1 }}
       >
-        <CogIcon height={30} width={30} color="white" />
-      </TouchableOpacity>
-      <Text>This is HomeScreen</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(ScreenRoute.LIST_SETTINGS_SCREEN)}
+        >
+          <CogIcon height={30} width={30} color="white" />
+        </TouchableOpacity>
+        <Text>This is HomeScreen</Text>
+      </ImageBackground>
     </S.Container>
   );
 };
