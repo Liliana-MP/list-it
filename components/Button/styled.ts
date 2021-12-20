@@ -26,7 +26,7 @@ export const RegularButton = styled.TouchableOpacity<ButtonProps>`
 `;
 
 export const SquareButton = styled.TouchableOpacity<ButtonProps>`
-  margin: 5px 0px;
+  margin: 5px 8px;
   border-radius: 8px;
   width: 115px;
   height: 115px;

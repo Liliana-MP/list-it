@@ -22,20 +22,33 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
-      <S.TextContainer>
+      <S.TitleContainer>
         <Typography size={20} weight="light" title="Hi Lili" />
-      </S.TextContainer>
+      </S.TitleContainer>
+
       <UpdateBox />
-      <S.Container>
+
+      <S.TextContainer>
         <Typography
           size={15}
           title="Your lists"
           color={theme.color_codes.black}
         />
+      </S.TextContainer>
+
+      <S.Container>
         <Button
           type="square"
           title="To list screen"
-          textColor="black"
+          textColor={theme.secondary.color}
+          color={theme.color_codes.white}
+          onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+        />
+        <Button
+          type="square"
+          title="Home"
+          textColor={theme.secondary.color}
+          color={theme.color_codes.white}
           onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
         />
       </S.Container>
