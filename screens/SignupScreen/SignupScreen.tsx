@@ -46,7 +46,7 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
       </S.InputFieldContainer>
 
       <Button
-        type="Regular"
+        type="regular"
         title="Sign up"
         color={theme.secondary.color}
         textColor={theme.secondary.onColor}

@@ -28,15 +28,15 @@ const PasswordInputField = ({
           <EyeIcon
             height={25}
             width={25}
-            style={{ padding: 15, marginRight: 5 }}
-            color={theme.secondary.color}
+            style={{ padding: 15, marginRight: 10 }}
+            color={theme.color_codes.dark_grey}
           />
         ) : (
           <EyeOffIcon
             height={25}
             width={25}
-            style={{ padding: 15, marginRight: 5 }}
-            color={theme.secondary.color}
+            style={{ padding: 15, marginRight: 10 }}
+            color={theme.color_codes.dark_grey}
           />
         )}
       </TouchableOpacity>

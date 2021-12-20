@@ -6,6 +6,7 @@ import { RootStackParamList } from "../types";
 import { ScreenRoute } from "../constants";
 import ListSettingsScreen from "../../screens/ListSettingsScreen";
 import SignupScreen from "../../screens/SignupScreen";
+import ListScreen from "../../screens/ListScreen/ListScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,7 @@ const StackNavigator = () => {
         component={ListSettingsScreen}
       />
       <Stack.Screen name={ScreenRoute.SIGNUP_SCREEN} component={SignupScreen} />
+      <Stack.Screen name={ScreenRoute.LIST_SCREEN} component={ListScreen} />
     </Stack.Navigator>
   );
 };

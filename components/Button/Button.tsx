@@ -1,17 +1,24 @@
 import React from "react";
 import { View, Text } from "react-native";
+import theme from "../../theme";
 import * as S from "./styled";
 
 interface ButtonProps {
   title: string;
-  color: string;
+  color?: string;
   textColor: string;
-  type: string;
+  type?: "regular" | "rounded";
   onPress: () => void;
 }
 
-const Button = ({ type, title, color, textColor, onPress }: ButtonProps) => {
-  if (type === "Regular") {
+const Button = ({
+  type = "regular",
+  title,
+  color = theme.primary.color,
+  textColor,
+  onPress,
+}: ButtonProps) => {
+  if (type === "regular") {
     return (
       <S.RegularButton color={color} onPress={onPress}>
         <S.ButtonText textColor={textColor}>{title}</S.ButtonText>

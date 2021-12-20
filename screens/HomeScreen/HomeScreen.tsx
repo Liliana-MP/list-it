@@ -1,10 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity } from "react-native";
-import { CogIcon } from "react-native-heroicons/outline";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import * as S from "./styled";
+import Button from "../../components/Button/Button";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -13,20 +13,21 @@ type HomeScreenProps = NativeStackScreenProps<
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   return (
-    <S.Container>
-      <ImageBackground
-        source={require("../../assets/images/marble-white.jpg")}
-        resizeMode="cover"
-        style={{ flex: 1 }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.navigate(ScreenRoute.LIST_SETTINGS_SCREEN)}
-        >
-          <CogIcon height={30} width={30} color="white" />
-        </TouchableOpacity>
+    <ImageBackground
+      source={require("../../assets/images/marble-white.jpg")}
+      resizeMode="cover"
+      style={{ flex: 1 }}
+    >
+      <S.Container>
         <Text>This is HomeScreen</Text>
-      </ImageBackground>
-    </S.Container>
+
+        <Button
+          title="To list screen"
+          textColor="black"
+          onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+        />
+      </S.Container>
+    </ImageBackground>
   );
 };
 

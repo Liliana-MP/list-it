@@ -5,6 +5,7 @@ export type RootStackParamList = {
   [ScreenRoute.LOGIN_SCREEN]: undefined;
   [ScreenRoute.LIST_SETTINGS_SCREEN]: undefined;
   [ScreenRoute.SIGNUP_SCREEN]: undefined;
+  [ScreenRoute.LIST_SCREEN]: undefined;
 };
 
 export type RootTabParamList = {
