@@ -1,12 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity } from "react-native";
+import { ImageBackground } from "react-native";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import * as S from "./styled";
-import Button from "../../components/Button/Button";
-import ListScreen from "../ListScreen/ListScreen";
-import MyAppText from "../../components/MyAppText";
+import Button from "../../components/Button";
+import Typography from "../../components/Typography";
+import Header from "../../components/Header";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -20,9 +20,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
-      <S.TextContainer>
-        <MyAppText size={50} title="Hejsan" weight="thin" />
-      </S.TextContainer>
+      <Header title="Hejsan" />
       <S.Container>
         <Button
           title="To list screen"

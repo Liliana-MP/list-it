@@ -22,9 +22,9 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
         <TouchableOpacity
           onPress={() => navigation.navigate(ScreenRoute.LIST_SETTINGS_SCREEN)}
         >
-          <S.Header>
+          <S.TopBar>
             <CogIcon height={30} width={30} color="black" />
-          </S.Header>
+          </S.TopBar>
         </TouchableOpacity>
         <Text>This is ListScreen</Text>
       </ImageBackground>
