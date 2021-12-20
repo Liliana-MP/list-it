@@ -1,12 +1,13 @@
 import React from "react";
 import theme from "../../theme";
+import Typography from "../Typography";
 import * as S from "./styled";
 
 interface ButtonProps {
   title: string;
   color?: string;
   textColor: string;
-  type?: "regular" | "rounded";
+  type?: "regular" | "square";
   onPress: () => void;
 }
 
@@ -20,14 +21,30 @@ const Button = ({
   if (type === "regular") {
     return (
       <S.RegularButton color={color} onPress={onPress}>
-        <S.ButtonText textColor={textColor}>{title}</S.ButtonText>
+        <Typography size={20} title={title} color={textColor} weight="light" />
       </S.RegularButton>
+    );
+  } else if (type === "square") {
+    return (
+      <S.SquareButton color={color} onPress={onPress}>
+        <Typography
+          size={19}
+          title={title}
+          color={textColor}
+          weight="semi-bold"
+        />
+      </S.SquareButton>
     );
   } else {
     return (
-      <S.AddButton color={color} onPress={onPress}>
-        <S.ButtonText textColor={textColor}>{title}</S.ButtonText>
-      </S.AddButton>
+      <S.RegularButton color={color} onPress={onPress}>
+        <Typography
+          size={20}
+          title={title}
+          color={textColor}
+          weight="semi-bold"
+        />
+      </S.RegularButton>
     );
   }
 };

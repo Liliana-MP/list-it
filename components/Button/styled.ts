@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { boxShadow } from "../../theme/shadows";
 
 interface ButtonProps {
   color: string;
@@ -14,11 +15,6 @@ export const ButtonContainer = styled.View`
   padding: 10px 60px;
 `;
 
-export const ButtonText = styled.Text<ButtonTextProps>`
-  color: ${(props) => props.textColor};
-  font-size: 20px;
-`;
-
 export const RegularButton = styled.TouchableOpacity<ButtonProps>`
   margin: 5px 0px;
   border-radius: 5px;
@@ -29,8 +25,13 @@ export const RegularButton = styled.TouchableOpacity<ButtonProps>`
   height: 50px;
 `;
 
-export const AddButton = styled.TouchableOpacity<ButtonProps>`
-  margin: 5px 20px;
+export const SquareButton = styled.TouchableOpacity<ButtonProps>`
+  margin: 5px 0px;
   border-radius: 8px;
+  width: 115px;
+  height: 115px;
   background-color: ${(props) => props.color};
+  align-items: center;
+  justify-content: center;
+  ${boxShadow}
 `;

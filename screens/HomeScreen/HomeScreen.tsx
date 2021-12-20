@@ -33,6 +33,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           color={theme.color_codes.black}
         />
         <Button
+          type="square"
           title="To list screen"
           textColor="black"
           onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
