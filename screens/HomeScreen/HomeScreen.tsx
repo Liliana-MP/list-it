@@ -7,6 +7,8 @@ import * as S from "./styled";
 import Button from "../../components/Button";
 import Typography from "../../components/Typography";
 import Header from "../../components/Header";
+import UpdateBox from "../../components/UpdateBox";
+import theme from "../../theme";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -20,8 +22,16 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
-      <Header title="Hejsan" />
+      <S.TextContainer>
+        <Typography size={20} weight="light" title="Hi Lili" />
+      </S.TextContainer>
+      <UpdateBox />
       <S.Container>
+        <Typography
+          size={15}
+          title="Your lists"
+          color={theme.color_codes.black}
+        />
         <Button
           title="To list screen"
           textColor="black"

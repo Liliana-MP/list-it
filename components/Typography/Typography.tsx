@@ -16,9 +16,14 @@ const weightClasses = {
   thin: "Montserrat-Thin",
 };
 
-const Typography = ({ title, weight = "light", size }: TypographyProps) => {
+const Typography = ({
+  title,
+  weight = "light",
+  size,
+  color = "black",
+}: TypographyProps) => {
   return (
-    <S.AppText size={size} weight={weightClasses[weight]}>
+    <S.AppText size={size} weight={weightClasses[weight]} color={color}>
       {title}
     </S.AppText>
   );
