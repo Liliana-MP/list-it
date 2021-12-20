@@ -5,6 +5,8 @@ import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import * as S from "./styled";
 import Button from "../../components/Button/Button";
+import ListScreen from "../ListScreen/ListScreen";
+import MyAppText from "../../components/MyAppText";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -18,9 +20,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
+      <S.TextContainer>
+        <MyAppText size={50} title="Hejsan" weight="thin" />
+      </S.TextContainer>
       <S.Container>
-        <Text>This is HomeScreen</Text>
-
         <Button
           title="To list screen"
           textColor="black"
