@@ -16,6 +16,7 @@ import {
   BellIcon as BellIconSolid,
 } from "react-native-heroicons/solid";
 import theme from "../../theme";
+import TabBarAddButton from "../../components/TabBarAddButton";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -52,6 +53,7 @@ const Tabs = () => {
           },
         }}
       />
+
       <Tab.Screen
         name={TabRoute.ALL_LISTS_SCREEN}
         component={AllListsScreen}
