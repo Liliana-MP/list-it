@@ -28,7 +28,7 @@ const Button = ({
     return (
       <S.SquareButton color={color} onPress={onPress}>
         <Typography
-          size={19}
+          size={15}
           title={title}
           color={textColor}
           weight="semi-bold"
