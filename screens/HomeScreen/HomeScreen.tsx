@@ -6,9 +6,9 @@ import { RootStackParamList } from "../../navigation/types";
 import * as S from "./styled";
 import Button from "../../components/Button";
 import Typography from "../../components/Typography";
-import Header from "../../components/Header";
 import UpdateBox from "../../components/UpdateBox";
 import theme from "../../theme";
+import Tabs from "../../navigation/TabNavigator";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,

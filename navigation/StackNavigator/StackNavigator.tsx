@@ -7,6 +7,7 @@ import { ScreenRoute } from "../constants";
 import ListSettingsScreen from "../../screens/ListSettingsScreen";
 import SignupScreen from "../../screens/SignupScreen";
 import ListScreen from "../../screens/ListScreen/ListScreen";
+import Tabs from "../TabNavigator";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -18,7 +19,7 @@ const StackNavigator = () => {
       }}
     >
       <Stack.Screen name={ScreenRoute.LOGIN_SCREEN} component={LoginScreen} />
-      <Stack.Screen name={ScreenRoute.HOME_SCREEN} component={HomeScreen} />
+      <Stack.Screen name={ScreenRoute.MAIN_SCREEN} component={Tabs} />
       <Stack.Screen
         name={ScreenRoute.LIST_SETTINGS_SCREEN}
         component={ListSettingsScreen}

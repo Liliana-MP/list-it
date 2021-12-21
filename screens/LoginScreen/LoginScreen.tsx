@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
           title="Sign in"
           color={theme.primary.color}
           textColor={theme.primary.onColor}
-          onPress={() => navigation.navigate(ScreenRoute.HOME_SCREEN)}
+          onPress={() => navigation.navigate(ScreenRoute.MAIN_SCREEN)}
         />
         <Button
           type="regular"

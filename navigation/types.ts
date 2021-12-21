@@ -1,7 +1,7 @@
-import { ScreenRoute } from "./constants";
+import { ScreenRoute, TabRoute } from "./constants";
 
 export type RootStackParamList = {
-  [ScreenRoute.HOME_SCREEN]: undefined;
+  [ScreenRoute.MAIN_SCREEN]: undefined;
   [ScreenRoute.LOGIN_SCREEN]: undefined;
   [ScreenRoute.LIST_SETTINGS_SCREEN]: undefined;
   [ScreenRoute.SIGNUP_SCREEN]: undefined;
@@ -9,5 +9,8 @@ export type RootStackParamList = {
 };
 
 export type RootTabParamList = {
-  // TabRoutes
+  [TabRoute.HOME_SCREEN]: undefined;
+  [TabRoute.NOTIFICATION_SCREEN]: undefined;
+  [TabRoute.ALL_LISTS_SCREEN]: undefined;
+  [TabRoute.ACCOUNT_SCREEN]: undefined;
 };
