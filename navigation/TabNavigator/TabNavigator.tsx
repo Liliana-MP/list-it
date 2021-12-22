@@ -25,6 +25,7 @@ const Tabs = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarShowLabel: false,
       }}
     >
       <Tab.Screen
@@ -33,7 +34,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <HomeIconSolid color={theme.primary.color} size={50} />
+              <HomeIcon color={theme.primary.color} size={50} />
             ) : (
               <HomeIcon color={theme.color_codes.dark_grey} size={30} />
             );
@@ -46,7 +47,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <BellIconSolid color={theme.primary.color} size={50} />
+              <BellIcon color={theme.primary.color} size={50} />
             ) : (
               <BellIcon color={theme.color_codes.dark_grey} size={30} />
             );
@@ -73,7 +74,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <UserCircleIconSolid color={theme.primary.color} size={50} />
+              <UserCircleIcon color={theme.primary.color} size={50} />
             ) : (
               <UserCircleIcon color={theme.color_codes.dark_grey} size={30} />
             );
