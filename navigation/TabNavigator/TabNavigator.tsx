@@ -74,15 +74,9 @@ const Tabs = () => {
           component={AddListModal}
           options={{
             tabBarIcon: ({ focused }) => {
-              return modalVisible ? (
+              return (
                 <CustomTabBarButton
                   onPress={() => setModalVisible(!modalVisible)}
-                  color={theme.primary_accent.color}
-                />
-              ) : (
-                <CustomTabBarButton
-                  onPress={() => setModalVisible(!modalVisible)}
-                  type="add"
                   color={theme.primary.color}
                 />
               );
