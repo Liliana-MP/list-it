@@ -11,6 +11,7 @@ export type RootStackParamList = {
 export type RootTabParamList = {
   [TabRoute.HOME_SCREEN]: undefined;
   [TabRoute.NOTIFICATION_SCREEN]: undefined;
+  [TabRoute.ADD_LIST_MODAL]: undefined;
   [TabRoute.ALL_LISTS_SCREEN]: undefined;
   [TabRoute.ACCOUNT_SCREEN]: undefined;
 };

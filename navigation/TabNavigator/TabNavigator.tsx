@@ -10,13 +10,11 @@ import {
   UserCircleIcon,
   BellIcon,
 } from "react-native-heroicons/outline";
-import {
-  HomeIcon as HomeIconSolid,
-  UserCircleIcon as UserCircleIconSolid,
-  BellIcon as BellIconSolid,
-} from "react-native-heroicons/solid";
+import { PlusCircleIcon } from "react-native-heroicons/solid";
 import theme from "../../theme";
-import TabBarAddButton from "../../components/TabBarAddButton";
+import TabBarAddButton from "../../components/CustomTabBarButton";
+import CustomTabBarButton from "../../components/CustomTabBarButton";
+import AccountScreen from "../../screens/AccountScreen";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -26,6 +24,16 @@ const Tabs = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarStyle: {
+          position: "absolute",
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 2,
+          backgroundColor: "white",
+          borderRadius: 15,
+          height: 70,
+        },
       }}
     >
       <Tab.Screen
@@ -34,7 +42,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <HomeIcon color={theme.primary.color} size={50} />
+              <HomeIcon color={theme.primary.color} size={35} />
             ) : (
               <HomeIcon color={theme.color_codes.dark_grey} size={30} />
             );
@@ -47,9 +55,25 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <BellIcon color={theme.primary.color} size={50} />
+              <BellIcon color={theme.primary.color} size={35} />
             ) : (
               <BellIcon color={theme.color_codes.dark_grey} size={30} />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        name={TabRoute.ADD_LIST_MODAL}
+        component={AllListsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <CustomTabBarButton
+                onPress={() => {
+                  console.log("click");
+                }}
+              />
             );
           },
         }}
@@ -61,7 +85,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <ViewListIcon color={theme.primary.color} size={50} />
+              <ViewListIcon color={theme.primary.color} size={35} />
             ) : (
               <ViewListIcon color={theme.color_codes.dark_grey} size={30} />
             );
@@ -70,11 +94,11 @@ const Tabs = () => {
       />
       <Tab.Screen
         name={TabRoute.ACCOUNT_SCREEN}
-        component={AllListsScreen}
+        component={AccountScreen}
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
-              <UserCircleIcon color={theme.primary.color} size={50} />
+              <UserCircleIcon color={theme.primary.color} size={35} />
             ) : (
               <UserCircleIcon color={theme.color_codes.dark_grey} size={30} />
             );
