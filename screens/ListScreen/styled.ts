@@ -9,4 +9,5 @@ export const TopBar = styled.View`
   background-color: blue;
   align-items: flex-end;
   margin-top: 15px;
+  padding-right: 10px;
 `;

@@ -23,7 +23,7 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
           onPress={() => navigation.navigate(ScreenRoute.LIST_SETTINGS_SCREEN)}
         >
           <S.TopBar>
-            <CogIcon height={30} width={30} color="black" />
+            <CogIcon height={35} width={35} color="black" />
           </S.TopBar>
         </TouchableOpacity>
         <Text>This is AllListsScreen</Text>

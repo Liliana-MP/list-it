@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
-import { ImageBackground, FlatList } from "react-native";
+import React, { useState } from "react";
+import { ImageBackground, FlatList, Modal } from "react-native";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import * as S from "./styled";
@@ -9,10 +9,11 @@ import Typography from "../../components/Typography";
 import UpdateBox from "../../components/UpdateBox";
 import theme from "../../theme";
 import Tabs from "../../navigation/TabNavigator";
+import { InputField } from "../../components/InputField/styled";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  ScreenRoute.HOME_SCREEN
+  ScreenRoute.MAIN_SCREEN
 >;
 
 const listButtons = [
@@ -38,6 +39,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       />
     );
   };
+
   return (
     <ImageBackground
       source={require("../../assets/images/marble-white.jpg")}

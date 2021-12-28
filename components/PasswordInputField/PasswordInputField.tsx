@@ -19,7 +19,7 @@ const PasswordInputField = ({
   return (
     <S.Container>
       <InputField
-        type="Password"
+        type="password"
         placeHolder={placeHolder}
         secureTextEntry={showPassword}
       />

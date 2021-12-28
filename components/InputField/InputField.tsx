@@ -10,13 +10,15 @@ interface InputProps {
 }
 
 const InputField = ({ type, placeHolder, secureTextEntry }: InputProps) => {
-  if (type === "Password") {
+  if (type === "password") {
     return (
       <S.PasswordField
         placeholder={placeHolder}
         secureTextEntry={secureTextEntry}
       />
     );
+  } else if (type === "modal") {
+    return <S.ModalField placeholder={placeHolder} />;
   } else {
     return <S.InputField placeholder={placeHolder} />;
   }

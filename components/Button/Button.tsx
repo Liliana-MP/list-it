@@ -1,22 +1,25 @@
 import React from "react";
+import { CheckIcon } from "react-native-heroicons/outline";
 import theme from "../../theme";
 import Typography from "../Typography";
 import * as S from "./styled";
 
 interface ButtonProps {
-  title: string;
+  title?: string;
   color?: string;
-  textColor: string;
-  type?: "regular" | "square";
+  textColor?: string;
+  borderColor?: string;
+  type?: "regular" | "square" | "icon";
   onPress: () => void;
 }
 
 const Button = ({
   type = "regular",
-  title,
+  title = "Title",
   color = theme.primary.color,
   textColor,
   onPress,
+  borderColor,
 }: ButtonProps) => {
   if (type === "regular") {
     return (
@@ -34,6 +37,12 @@ const Button = ({
           weight="semi-bold"
         />
       </S.SquareButton>
+    );
+  } else if (type === "icon") {
+    return (
+      <S.IconButton borderColor={borderColor} color={color} onPress={onPress}>
+        <CheckIcon color="white" size={60} />
+      </S.IconButton>
     );
   } else {
     return (

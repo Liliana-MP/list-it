@@ -3,6 +3,7 @@ import { boxShadow } from "../../theme/shadows";
 
 interface ButtonProps {
   color: string;
+  borderColor?: string;
 }
 
 interface ButtonTextProps {
@@ -34,4 +35,16 @@ export const SquareButton = styled.TouchableOpacity<ButtonProps>`
   align-items: center;
   justify-content: center;
   ${boxShadow}
+`;
+
+export const IconButton = styled.TouchableOpacity<ButtonProps>`
+  margin: 25px 8px 0px 8px;
+  border-radius: 8px;
+  width: 70px;
+  height: 70px;
+  background-color: ${(props) => props.color};
+  border-color: ${(props) => props.borderColor};
+  border-width: 2px;
+  align-items: center;
+  justify-content: center;
 `;

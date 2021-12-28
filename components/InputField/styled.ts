@@ -16,3 +16,11 @@ export const PasswordField = styled.TextInput`
   padding-left: 10px;
   background-color: white;
 `;
+
+export const ModalField = styled.TextInput`
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+  width: 90%;
+  font-size: 20px;
+`;
