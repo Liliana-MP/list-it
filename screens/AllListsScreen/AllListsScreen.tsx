@@ -8,7 +8,7 @@ import * as S from "../ListScreen/styled";
 
 type AllListsScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  ScreenRoute.LIST_SCREEN
+  ScreenRoute.MAIN_SCREEN
 >;
 
 const AllListsScreen = ({ navigation }: AllListsScreenProps) => {

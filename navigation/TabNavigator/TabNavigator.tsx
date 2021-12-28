@@ -15,6 +15,7 @@ import theme from "../../theme";
 import TabBarAddButton from "../../components/CustomTabBarButton";
 import CustomTabBarButton from "../../components/CustomTabBarButton";
 import AccountScreen from "../../screens/AccountScreen";
+import NotificationScreen from "../../screens/NotificationScreen";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -51,7 +52,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name={TabRoute.NOTIFICATION_SCREEN}
-        component={AllListsScreen}
+        component={NotificationScreen}
         options={{
           tabBarIcon: ({ focused }) => {
             return focused ? (
