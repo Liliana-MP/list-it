@@ -2,8 +2,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
+import Header from "../../components/Header";
+import ListButton from "../../components/ListButton";
+
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
+import theme from "../../theme";
 import * as S from "../ListScreen/styled";
 
 type AllListsScreenProps = NativeStackScreenProps<
@@ -26,7 +30,8 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
             <CogIcon height={35} width={35} color="black" />
           </S.TopBar>
         </TouchableOpacity>
-        <Text>This is AllListsScreen</Text>
+        <Header color={theme.secondary.color} title="Your Lists" />
+        <ListButton title="List 1" />
       </ImageBackground>
     </S.Container>
   );
