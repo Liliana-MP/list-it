@@ -2,13 +2,6 @@ import styled from "styled-components/native";
 import theme from "../../theme";
 import { boxShadow } from "../../theme/shadows";
 
-export const Container = styled.View`
-  background-color: lightblue;
-  align-items: flex-end;
-  margin: 8px 15px;
-  width: 80%;
-`;
-
 export const Button = styled.TouchableOpacity`
   margin: 8px 15px;
   height: 60px;
@@ -18,4 +11,11 @@ export const Button = styled.TouchableOpacity`
   align-items: center;
   padding-left: 15px;
   ${boxShadow};
+`;
+
+export const ArrowContainer = styled.View`
+  background-color: ${theme.primary_lighter.color};
+  align-items: flex-end;
+  right: 10px;
+  position: absolute;
 `;

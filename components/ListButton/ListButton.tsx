@@ -5,15 +5,16 @@ import * as S from "./styled";
 
 interface ListButtonProps {
   title: string;
+  onPress: () => void;
 }
 
-const ListButton = ({ title }: ListButtonProps) => {
+const ListButton = ({ title, onPress }: ListButtonProps) => {
   return (
-    <S.Button>
+    <S.Button onPress={onPress}>
       <Typography title={title} size={20} weight="light" />
-      <S.Container>
+      <S.ArrowContainer>
         <ChevronRightIcon color="black" />
-      </S.Container>
+      </S.ArrowContainer>
     </S.Button>
   );
 };

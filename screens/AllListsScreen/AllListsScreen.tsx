@@ -13,7 +13,7 @@ import ListButton from "../../components/ListButton";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
-import * as S from "../ListScreen/styled";
+import * as S from "./styled";
 
 type AllListsScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -37,7 +37,12 @@ const lists = [
 
 const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
   const renderItem = ({ item }: any) => {
-    return <ListButton title={item.title} />;
+    return (
+      <ListButton
+        title={item.title}
+        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+      />
+    );
   };
   return (
     <S.Container>
@@ -47,7 +52,7 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         style={{ flex: 1 }}
       >
         <Header color={theme.secondary.color} title="Your Lists" />
-        <FlatList
+        <S.ListContainer
           data={lists}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
