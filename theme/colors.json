@@ -3,9 +3,13 @@
     "color": "#F78C64",
     "onColor": "#FFF"
   },
-  "primary_accent": {
+  "primary_darker": {
     "color": "#c57050",
     "onColor": "#FFF"
+  },
+  "primary_lighter": {
+    "color": "#f9ae92",
+    "onColor": "#000"
   },
   "secondary": {
     "color": "#044E65",

@@ -10,7 +10,7 @@ interface ListButtonProps {
 const ListButton = ({ title }: ListButtonProps) => {
   return (
     <S.Button>
-      <Typography title={title} size={20} />
+      <Typography title={title} size={20} weight="light" />
       <S.Container>
         <ChevronRightIcon color="black" />
       </S.Container>

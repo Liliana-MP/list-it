@@ -1,6 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
 import Header from "../../components/Header";
 import ListButton from "../../components/ListButton";
@@ -15,7 +20,25 @@ type AllListsScreenProps = NativeStackScreenProps<
   ScreenRoute.MAIN_SCREEN
 >;
 
+const lists = [
+  { id: "1", title: "To list screen" },
+  { id: "2", title: "Home" },
+  { id: "3", title: "Vacation" },
+  { id: "4", title: "Groceries" },
+  { id: "5", title: "Obi" },
+  { id: "6", title: "Computer parts" },
+  { id: "7", title: "My christmas list" },
+  { id: "8", title: "Random" },
+  { id: "9", title: "Birthday" },
+  { id: "10", title: "New Years" },
+  { id: "11", title: "All Birthdays" },
+  { id: "12", title: "Work" },
+];
+
 const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
+  const renderItem = ({ item }: any) => {
+    return <ListButton title={item.title} />;
+  };
   return (
     <S.Container>
       <ImageBackground
@@ -23,15 +46,12 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         resizeMode="cover"
         style={{ flex: 1 }}
       >
-        <TouchableOpacity
-          onPress={() => navigation.navigate(ScreenRoute.LIST_SETTINGS_SCREEN)}
-        >
-          <S.TopBar>
-            <CogIcon height={35} width={35} color="black" />
-          </S.TopBar>
-        </TouchableOpacity>
         <Header color={theme.secondary.color} title="Your Lists" />
-        <ListButton title="List 1" />
+        <FlatList
+          data={lists}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
       </ImageBackground>
     </S.Container>
   );
