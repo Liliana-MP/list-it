@@ -96,6 +96,7 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
                     type="item"
                     title={item.name}
                     color="white"
+                    isChecked={true}
                     onPress={() => completeTask(item.id)}
                   />
                 ))

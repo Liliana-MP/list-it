@@ -10,6 +10,7 @@ interface ListButtonProps {
   onPress: () => void;
   type: "list" | "item";
   color?: string;
+  isChecked?: boolean;
 }
 
 const ListButton = ({
@@ -17,6 +18,7 @@ const ListButton = ({
   onPress,
   type,
   color = "white",
+  isChecked = false,
 }: ListButtonProps) => {
   if (type === "list") {
     return (
@@ -36,6 +38,7 @@ const ListButton = ({
             onPress={onPress}
             textStyle={{ textDecorationLine: "none" }}
             fillColor={theme.secondary.color}
+            isChecked={isChecked}
             iconStyle={{
               borderRadius: 5,
             }}
