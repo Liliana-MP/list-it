@@ -9,6 +9,7 @@ import {
 import { CogIcon } from "react-native-heroicons/outline";
 import Header from "../../components/Header";
 import ListButton from "../../components/ListButton";
+import { List } from "../../models/types";
 
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
@@ -21,25 +22,27 @@ type AllListsScreenProps = NativeStackScreenProps<
 >;
 
 const lists = [
-  { id: "1", title: "To list screen" },
-  { id: "2", title: "Home" },
-  { id: "3", title: "Vacation" },
-  { id: "4", title: "Groceries" },
-  { id: "5", title: "Obi" },
-  { id: "6", title: "Computer parts" },
-  { id: "7", title: "My christmas list" },
-  { id: "8", title: "Random" },
-  { id: "9", title: "Birthday" },
-  { id: "10", title: "New Years" },
-  { id: "11", title: "All Birthdays" },
-  { id: "12", title: "Work" },
+  { id: "1", name: "Hejsan Hejsan" },
+  { id: "2", name: "Home" },
+  { id: "3", name: "Vacation" },
+  { id: "4", name: "Groceries" },
+  { id: "5", name: "Obi" },
+  { id: "6", name: "Computer parts" },
+  { id: "7", name: "My christmas list" },
+  { id: "8", name: "Random" },
+  { id: "9", name: "Birthday" },
+  { id: "10", name: "New Years" },
+  { id: "11", name: "All Birthdays" },
+  { id: "12", name: "Work" },
 ];
 
 const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
-  const renderItem = ({ item }: any) => {
+  const renderItem = ({ item }: { item: List }) => {
     return (
       <ListButton
-        title={item.title}
+        type="list"
+        title={item.name}
+        color={theme.primary.color}
         onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
       />
     );
@@ -52,11 +55,14 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         style={{ flex: 1 }}
       >
         <Header color={theme.secondary.color} title="Your Lists" />
-        <S.ListContainer
-          data={lists}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        <S.ListContainer>
+          <FlatList
+            data={lists}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+          />
+        </S.ListContainer>
       </ImageBackground>
     </S.Container>
   );

@@ -10,6 +10,7 @@ import UpdateBox from "../../components/UpdateBox";
 import theme from "../../theme";
 import Tabs from "../../navigation/TabNavigator";
 import { InputField } from "../../components/InputField/styled";
+import { Item, List } from "../../models/types";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -17,22 +18,22 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 const listButtons = [
-  { id: "1", title: "To list screen" },
-  { id: "2", title: "Home" },
-  { id: "3", title: "Vacation" },
-  { id: "4", title: "Groceries" },
-  { id: "5", title: "Obi" },
-  { id: "6", title: "Computer parts" },
-  { id: "7", title: "My christmas list" },
-  { id: "8", title: "Random" },
+  { id: "1", name: "To list screen" },
+  { id: "2", name: "Home" },
+  { id: "3", name: "Vacation" },
+  { id: "4", name: "Groceries" },
+  { id: "5", name: "Obi" },
+  { id: "6", name: "Computer parts" },
+  { id: "7", name: "My christmas list" },
+  { id: "8", name: "Random" },
 ];
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const renderItem = ({ item }: { item: { id: string; title: string } }) => {
+  const renderItem = ({ item }: { item: List }) => {
     return (
       <Button
         type="square"
-        title={item.title}
+        title={item.name}
         textColor={theme.secondary.color}
         color={theme.color_codes.white}
         onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
