@@ -24,8 +24,8 @@ export const ButtonContainer = styled.View`
   background-color: transparent;
   position: absolute;
   bottom: 20px;
-  right: 0px;
-  left: 90%;
+  right: 10px;
+  left: 80%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
