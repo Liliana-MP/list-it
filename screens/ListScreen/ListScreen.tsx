@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   ImageBackground,
@@ -25,25 +25,35 @@ type ListScreenProps = NativeStackScreenProps<
 >;
 
 const listItems = [
-  { id: "1", name: "Milk", done: false },
-  { id: "2", name: "Honey", done: false },
-  { id: "3", name: "Pears", done: false },
+  { id: "1", name: "Milk" },
+  { id: "2", name: "Honey" },
+  { id: "3", name: "Pears" },
 ];
 
 const ListScreen = ({ navigation }: ListScreenProps) => {
+  const [onGoingItems, setOnGoingItems] = useState<Item[]>([]);
   const [doneItems, setDoneItems] = useState<Item[]>([]);
 
-  const completeTask = (id: string) => {
-    let itemsCopy = [...listItems];
-    const newItems = itemsCopy.map((item: Item) => {
-      if (item.id === id) {
-        return { ...item, done: true };
-      }
-      return item;
-    });
+  useEffect(() => {
+    setOnGoingItems(listItems);
+  }, []);
 
-    const filteredArray = newItems.filter((item) => item.done === true);
-    setDoneItems([...doneItems, ...filteredArray]);
+  const setDone = (id: string) => {
+    const tempList = [...onGoingItems];
+    const index = tempList.findIndex((item) => item.id === id);
+    const doneItem = tempList.splice(index, 1);
+
+    setDoneItems([...doneItems, ...doneItem]);
+    setOnGoingItems(tempList);
+  };
+
+  const setOnGoing = (id: string) => {
+    const tempList = [...doneItems];
+    const index = tempList.findIndex((item) => item.id === id);
+    const onGoingItem = tempList.splice(index, 1);
+
+    setOnGoingItems([...onGoingItems, ...onGoingItem]);
+    setDoneItems(tempList);
   };
 
   return (
@@ -72,15 +82,16 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
               color={theme.primary.color}
               weight="semi-bold"
             />
-            {listItems.map((item) => (
-              <ListButton
-                key={item.id}
-                type="item"
-                title={item.name}
-                color="white"
-                onPress={() => completeTask(item.id)}
-              />
-            ))}
+            {onGoingItems.length > 0 &&
+              onGoingItems.map((item) => (
+                <ListButton
+                  key={item.id}
+                  type="item"
+                  title={item.name}
+                  color="white"
+                  onPress={() => setDone(item.id)}
+                />
+              ))}
           </S.OnGoingContainer>
           <S.DoneContainer>
             <Typography
@@ -89,18 +100,17 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
               color={theme.primary.color}
               weight="semi-bold"
             />
-            {doneItems.length > 0
-              ? doneItems.map((item) => (
-                  <ListButton
-                    key={item.id}
-                    type="item"
-                    title={item.name}
-                    color="white"
-                    isChecked={true}
-                    onPress={() => completeTask(item.id)}
-                  />
-                ))
-              : null}
+            {doneItems.length > 0 &&
+              doneItems.map((item) => (
+                <ListButton
+                  key={item.id}
+                  type="item"
+                  title={item.name}
+                  color="white"
+                  isChecked={true}
+                  onPress={() => setOnGoing(item.id)}
+                />
+              ))}
           </S.DoneContainer>
         </ScrollView>
       </ImageBackground>
