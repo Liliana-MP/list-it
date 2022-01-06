@@ -17,6 +17,16 @@ export const OnGoingContainer = styled.View`
 `;
 
 export const DoneContainer = styled.View`
-  margin: 10px 10px;
-  height: 35%;
+  margin: 50px 10px;
+`;
+
+export const ButtonContainer = styled.View`
+  background-color: transparent;
+  position: absolute;
+  bottom: 20px;
+  right: 0px;
+  left: 90%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 `;

@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   FlatList,
   ImageBackground,
   ScrollView,
@@ -9,6 +10,10 @@ import {
   View,
 } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
+import Toast from "react-native-toast-message";
+import AddListModal from "../../components/AddListModal";
+import Button from "../../components/Button";
+import CustomTabBarButton from "../../components/CustomTabBarButton";
 import Header from "../../components/Header";
 
 import ListButton from "../../components/ListButton";
@@ -28,11 +33,14 @@ const listItems = [
   { id: "1", name: "Milk" },
   { id: "2", name: "Honey" },
   { id: "3", name: "Pears" },
+  { id: "4", name: "Milk" },
 ];
 
 const ListScreen = ({ navigation }: ListScreenProps) => {
   const [onGoingItems, setOnGoingItems] = useState<Item[]>([]);
   const [doneItems, setDoneItems] = useState<Item[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [textInput, setTextInput] = useState("");
 
   useEffect(() => {
     setOnGoingItems(listItems);
@@ -56,8 +64,38 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
     setDoneItems(tempList);
   };
 
+  const addItem = () => {
+    if (textInput == "") {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Please input text",
+        position: "top",
+        topOffset: 80,
+      });
+    } else {
+      const newItem = {
+        id: Math.random().toString(),
+        name: textInput,
+      };
+
+      setOnGoingItems([...onGoingItems, newItem]);
+      setTextInput("");
+      setModalVisible(!modalVisible);
+    }
+  };
+
   return (
     <S.Container>
+      <AddListModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        color={theme.secondary.color}
+        title="Add new item"
+        onPress={addItem}
+        value={textInput}
+        onChangeText={(text: string) => setTextInput(text)}
+      />
       <ImageBackground
         source={require("../../assets/images/marble-white.jpg")}
         resizeMode="cover"
@@ -77,7 +115,7 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
 
           <S.OnGoingContainer>
             <Typography
-              title="OnGoing"
+              title="Ongoing"
               size={14}
               color={theme.primary.color}
               weight="semi-bold"
@@ -113,6 +151,12 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
               ))}
           </S.DoneContainer>
         </ScrollView>
+        <S.ButtonContainer>
+          <CustomTabBarButton
+            color={theme.secondary.color}
+            onPress={() => setModalVisible(!modalVisible)}
+          />
+        </S.ButtonContainer>
       </ImageBackground>
     </S.Container>
   );

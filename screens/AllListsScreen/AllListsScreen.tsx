@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   ImageBackground,
@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
+import Toast from "react-native-toast-message";
+import AddListModal from "../../components/AddListModal";
+import CustomTabBarButton from "../../components/CustomTabBarButton";
 import Header from "../../components/Header";
 import ListButton from "../../components/ListButton";
 import { List } from "../../models/types";
@@ -28,27 +31,68 @@ const lists = [
   { id: "4", name: "Groceries" },
   { id: "5", name: "Obi" },
   { id: "6", name: "Computer parts" },
-  { id: "7", name: "My christmas list" },
-  { id: "8", name: "Random" },
-  { id: "9", name: "Birthday" },
-  { id: "10", name: "New Years" },
-  { id: "11", name: "All Birthdays" },
-  { id: "12", name: "Work" },
+  { id: "7", name: "Vacation" },
+  { id: "8", name: "Groceries" },
+  { id: "9", name: "Obi" },
+  { id: "10", name: "Computer parts" },
+  { id: "11", name: "Vacation" },
+  { id: "12", name: "Groceries" },
+  { id: "13", name: "Obi" },
+  { id: "14", name: "Computer parts" },
 ];
 
 const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [textInput, setTextInput] = useState("");
+  const [allLists, setAllLists] = useState<List[]>([]);
+
+  useEffect(() => {
+    setAllLists(lists);
+  }, []);
+
   const renderItem = ({ item }: { item: List }) => {
     return (
       <ListButton
         type="list"
         title={item.name}
-        color={theme.primary.color}
+        color={theme.primary_lighter.color}
         onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
       />
     );
   };
+
+  const addList = () => {
+    if (textInput == "") {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Please input text",
+        position: "top",
+        topOffset: 80,
+      });
+    } else {
+      const newList = {
+        id: Math.random().toString(),
+        name: textInput,
+      };
+
+      setAllLists([...allLists, newList]);
+      setTextInput("");
+      setModalVisible(!modalVisible);
+    }
+  };
+
   return (
     <S.Container>
+      <AddListModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        color={theme.primary.color}
+        title="Add new list"
+        onPress={addList}
+        value={textInput}
+        onChangeText={(text: string) => setTextInput(text)}
+      />
       <ImageBackground
         source={require("../../assets/images/marble-white.jpg")}
         resizeMode="cover"
@@ -57,12 +101,18 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         <Header color={theme.secondary.color} title="Your Lists" />
         <S.ListContainer>
           <FlatList
-            data={lists}
+            data={allLists}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
           />
         </S.ListContainer>
+        <S.ButtonContainer>
+          <CustomTabBarButton
+            color={theme.primary.color}
+            onPress={() => setModalVisible(!modalVisible)}
+          />
+        </S.ButtonContainer>
       </ImageBackground>
     </S.Container>
   );

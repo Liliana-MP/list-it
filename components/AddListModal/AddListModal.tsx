@@ -1,6 +1,7 @@
 import React, { Dispatch, useState } from "react";
 import { View, Modal, Text, Alert } from "react-native";
 import { XIcon } from "react-native-heroicons/outline";
+import Toast from "react-native-toast-message";
 import theme from "../../theme";
 import Button from "../Button";
 import InputField from "../InputField";
@@ -11,9 +12,22 @@ import * as S from "./styled";
 interface AddListModalProps {
   modalVisible: boolean;
   setModalVisible: Dispatch<React.SetStateAction<boolean>>;
+  title: string;
+  color: string;
+  onPress: () => void;
+  onChangeText?: (text: string) => void;
+  value?: string;
 }
 
-const AddListModal = ({ modalVisible, setModalVisible }: AddListModalProps) => {
+const AddListModal = ({
+  modalVisible,
+  setModalVisible,
+  title,
+  color,
+  onPress,
+  onChangeText,
+  value,
+}: AddListModalProps) => {
   return (
     <Modal
       onRequestClose={() => setModalVisible(!modalVisible)}
@@ -22,26 +36,30 @@ const AddListModal = ({ modalVisible, setModalVisible }: AddListModalProps) => {
       transparent={true}
     >
       <S.ModalBackground>
-        <S.ModalContainer>
+        <S.ModalContainer color={color}>
           <S.TextContainer>
             <Typography
-              title="Add to list"
+              title={title}
               size={28}
               weight="semi-bold"
-              color={theme.primary.onColor}
+              color="white"
             />
           </S.TextContainer>
-          <InputField type="modal" placeHolder="Add to list" />
+          <InputField
+            type="modal"
+            placeHolder={title}
+            onChangeText={onChangeText}
+            value={value}
+          />
           <Button
             type="icon"
             color="transparent"
             borderColor="white"
-            onPress={() => {
-              console.log("click");
-            }}
+            onPress={onPress}
           />
         </S.ModalContainer>
       </S.ModalBackground>
+      <Toast />
     </Modal>
   );
 };

@@ -4,6 +4,7 @@ import StackNavigator from "./navigation/StackNavigator";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import Tabs from "./navigation/TabNavigator";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -22,6 +23,7 @@ export default function App() {
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1 }}>
         <StackNavigator />
+        <Toast />
       </SafeAreaView>
     </NavigationContainer>
   );

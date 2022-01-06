@@ -19,13 +19,8 @@ import AddListModal from "../../components/AddListModal";
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const Tabs = () => {
-  const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
-      <AddListModal
-        setModalVisible={setModalVisible}
-        modalVisible={modalVisible}
-      />
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
@@ -68,10 +63,10 @@ const Tabs = () => {
             },
           }}
         />
-
+        {/* 
         <Tab.Screen
-          name={TabRoute.ADD_LIST_MODAL}
-          component={AddListModal}
+          name={TabRoute.ALL_LISTS_SCREEN}
+          component={AllListsScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               return (
@@ -82,7 +77,7 @@ const Tabs = () => {
               );
             },
           }}
-        />
+        /> */}
 
         <Tab.Screen
           name={TabRoute.ALL_LISTS_SCREEN}
