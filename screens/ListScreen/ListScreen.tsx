@@ -1,21 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  FlatList,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
 import Toast from "react-native-toast-message";
 import AddListModal from "../../components/AddListModal";
-import Button from "../../components/Button";
 import CustomTabBarButton from "../../components/CustomTabBarButton";
 import Header from "../../components/Header";
-
 import ListButton from "../../components/ListButton";
 import Typography from "../../components/Typography";
 import { Item } from "../../models/types";
@@ -47,6 +37,17 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
 
   useEffect(() => {
     setOnGoingItems(listItems);
+  }, []);
+
+  // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe
+  const onDismiss = useCallback((id: string) => {
+    const onGoingIndex = onGoingItems.findIndex((item) => item.id === id);
+    if (onGoingIndex !== -1) {
+      onGoingItems.splice(onGoingIndex, 1);
+    } else {
+      const doneIndex = doneItems.findIndex((item) => item.id === id);
+      doneItems.splice(doneIndex, 1);
+    }
   }, []);
 
   const setDone = (id: string) => {
@@ -140,6 +141,8 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
                   title={item.name}
                   color="white"
                   onPress={() => setDone(item.id)}
+                  id={item.id}
+                  onDismiss={onDismiss}
                 />
               ))}
           </S.OnGoingContainer>

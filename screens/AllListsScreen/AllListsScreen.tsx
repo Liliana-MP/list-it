@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   FlatList,
   ImageBackground,
@@ -50,6 +50,14 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
     setAllLists(lists);
   }, []);
 
+  // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe ifall listan försvinner
+  const onDismiss = useCallback((id: string) => {
+    const index = allLists.findIndex((item) => item.id === id);
+    if (index !== -1) {
+      allLists.splice(index, 1);
+    }
+  }, []);
+
   const renderItem = ({ item }: { item: List }) => {
     return (
       <ListButton
@@ -57,6 +65,8 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         title={item.name}
         color={theme.primary_lighter.color}
         onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+        id={item.id}
+        onDismiss={onDismiss}
       />
     );
   };
