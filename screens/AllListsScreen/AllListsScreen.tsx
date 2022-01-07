@@ -25,7 +25,7 @@ type AllListsScreenProps = NativeStackScreenProps<
 >;
 
 const lists = [
-  { id: "1", name: "Hejsan Hejsan" },
+  { id: "1", name: "Hejsan Hejsan Hejsan Hejsan Hejsan Hejsan" },
   { id: "2", name: "Home" },
   { id: "3", name: "Vacation" },
   { id: "4", name: "Groceries" },
@@ -98,7 +98,15 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         resizeMode="cover"
         style={{ flex: 1 }}
       >
-        <Header color={theme.secondary.color} title="Your Lists" />
+        <S.TopContainer>
+          <Header color={theme.secondary.color} title="Your Lists" />
+          <S.ButtonContainer>
+            <CustomTabBarButton
+              color={theme.primary.color}
+              onPress={() => setModalVisible(!modalVisible)}
+            />
+          </S.ButtonContainer>
+        </S.TopContainer>
         <S.ListContainer>
           <FlatList
             data={allLists}
@@ -107,12 +115,6 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
             showsVerticalScrollIndicator={false}
           />
         </S.ListContainer>
-        <S.ButtonContainer>
-          <CustomTabBarButton
-            color={theme.primary.color}
-            onPress={() => setModalVisible(!modalVisible)}
-          />
-        </S.ButtonContainer>
       </ImageBackground>
     </S.Container>
   );

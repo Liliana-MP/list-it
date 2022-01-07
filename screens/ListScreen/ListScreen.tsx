@@ -33,7 +33,10 @@ const listItems = [
   { id: "1", name: "Milk" },
   { id: "2", name: "Honey" },
   { id: "3", name: "Pears" },
-  { id: "4", name: "Milk" },
+  {
+    id: "4",
+    name: "Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk ",
+  },
 ];
 
 const ListScreen = ({ navigation }: ListScreenProps) => {
@@ -111,7 +114,16 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
               <CogIcon height={38} width={38} color="black" />
             </S.TopBar>
           </TouchableOpacity>
-          <Header title="List 1" />
+
+          <S.TopContainer>
+            <Header title="List 1 " color={theme.secondary.color} />
+            <S.ButtonContainer>
+              <CustomTabBarButton
+                color={theme.primary.color}
+                onPress={() => setModalVisible(!modalVisible)}
+              />
+            </S.ButtonContainer>
+          </S.TopContainer>
 
           <S.OnGoingContainer>
             <Typography
@@ -151,12 +163,6 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
               ))}
           </S.DoneContainer>
         </ScrollView>
-        <S.ButtonContainer>
-          <CustomTabBarButton
-            color={theme.secondary.color}
-            onPress={() => setModalVisible(!modalVisible)}
-          />
-        </S.ButtonContainer>
       </ImageBackground>
     </S.Container>
   );

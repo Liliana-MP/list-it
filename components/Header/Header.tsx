@@ -10,7 +10,13 @@ interface HeaderProps {
 const Header = ({ title, color }: HeaderProps) => {
   return (
     <S.Container>
-      <Typography color={color} size={36} weight="semi-bold" title={title} />
+      <Typography
+        color={color}
+        size={36}
+        weight="semi-bold"
+        title={title}
+        numberOfLines={1}
+      />
     </S.Container>
   );
 };

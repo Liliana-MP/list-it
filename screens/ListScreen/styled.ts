@@ -20,13 +20,16 @@ export const DoneContainer = styled.View`
   margin: 50px 10px;
 `;
 
+export const TopContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  margin-left: 40px;
+`;
+
 export const ButtonContainer = styled.View`
   background-color: transparent;
-  position: absolute;
-  bottom: 20px;
-  right: 10px;
-  left: 80%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  top: 3px;
+  margin-left: 20px;
 `;

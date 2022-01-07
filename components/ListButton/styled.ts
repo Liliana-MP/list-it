@@ -34,3 +34,7 @@ export const IconContainer = styled.View`
   right: 10px;
   position: absolute;
 `;
+
+export const TextContainer = styled.View`
+  max-width: 90%;
+`;

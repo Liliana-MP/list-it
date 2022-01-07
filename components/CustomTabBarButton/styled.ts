@@ -9,12 +9,11 @@ interface AddButtonProps {
 export const Container = styled.View``;
 
 export const AddButton = styled.TouchableOpacity<AddButtonProps>`
-  top: -25px;
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.color};
-  width: 70px;
-  height: 70px;
+  width: 35px;
+  height: 35px;
   border-radius: 35px;
   ${roundShadow}
 `;

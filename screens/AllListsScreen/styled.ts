@@ -9,15 +9,14 @@ export const ListContainer = styled.View`
   height: 78%;
 `;
 
+export const TopContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ButtonContainer = styled.View`
   background-color: transparent;
-  position: absolute;
-  bottom: 70px;
-  right: 0px;
-  left: 90%;
-  height: 10%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  margin: 0px 15px 0px 0px;
+  top: 3px;
+  margin-left: 20px;
 `;

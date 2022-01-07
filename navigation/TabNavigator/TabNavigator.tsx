@@ -27,7 +27,7 @@ const Tabs = () => {
           tabBarShowLabel: false,
           tabBarStyle: {
             position: "absolute",
-            bottom: 25,
+            bottom: 10,
             left: 20,
             right: 20,
             elevation: 2,
@@ -36,6 +36,7 @@ const Tabs = () => {
             height: 70,
           },
         }}
+        backBehavior="history"
       >
         <Tab.Screen
           name={TabRoute.HOME_SCREEN}

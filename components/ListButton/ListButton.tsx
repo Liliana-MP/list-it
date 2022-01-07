@@ -23,7 +23,8 @@ const ListButton = ({
   if (type === "list") {
     return (
       <S.Button color={color} onPress={onPress}>
-        <Typography title={title} size={20} weight="light" />
+        <Typography title={title} size={20} weight="light" numberOfLines={1} />
+
         <S.IconContainer>
           <ChevronRightIcon color="black" />
         </S.IconContainer>
@@ -32,7 +33,14 @@ const ListButton = ({
   } else if (type === "item") {
     return (
       <S.ItemButton color={color}>
-        <Typography title={title} size={20} weight="light" />
+        <S.TextContainer>
+          <Typography
+            title={title}
+            size={20}
+            weight="light"
+            numberOfLines={1}
+          />
+        </S.TextContainer>
         <S.IconContainer>
           <BouncyCheckbox
             onPress={onPress}

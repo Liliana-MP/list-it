@@ -7,6 +7,7 @@ interface TypographyProps {
   color?: string;
   weight?: "bold" | "semi-bold" | "light" | "thin";
   size: number;
+  numberOfLines?: number;
 }
 
 const weightClasses = {
@@ -21,9 +22,15 @@ const Typography = ({
   weight = "light",
   size,
   color = "black",
+  numberOfLines,
 }: TypographyProps) => {
   return (
-    <S.AppText size={size} weight={weightClasses[weight]} color={color}>
+    <S.AppText
+      size={size}
+      weight={weightClasses[weight]}
+      color={color}
+      numberOfLines={numberOfLines}
+    >
       {title}
     </S.AppText>
   );

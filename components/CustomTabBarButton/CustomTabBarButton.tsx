@@ -23,7 +23,7 @@ const CustomTabBarButton = ({
   }
   return (
     <S.AddButton color={color} onPress={onPress}>
-      <PlusIcon color="white" size={40} />
+      <PlusIcon color="white" size={25} />
     </S.AddButton>
   );
 };
