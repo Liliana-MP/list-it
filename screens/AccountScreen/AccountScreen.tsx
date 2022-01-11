@@ -1,10 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
-import { ImageBackground, Text, TouchableOpacity } from "react-native";
-import { CogIcon } from "react-native-heroicons/outline";
-import { ScreenRoute, TabRoute } from "../../navigation/constants";
+import React, { useState } from "react";
+import { ImageBackground } from "react-native";
+import Header from "../../components/Header";
+
+import InputField from "../../components/InputField";
+import PasswordInputField from "../../components/PasswordInputField";
+import TextButton from "../../components/TextButton";
+
+import { TabRoute } from "../../navigation/constants";
 import { RootTabParamList } from "../../navigation/types";
-import * as S from "../ListScreen/styled";
+import theme from "../../theme";
+import * as S from "./styled";
 
 type AccountScreenProps = NativeStackScreenProps<
   RootTabParamList,
@@ -12,16 +18,34 @@ type AccountScreenProps = NativeStackScreenProps<
 >;
 
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
+  const [showPassword, setShowPassword] = useState(true);
   return (
-    <S.Container>
-      <ImageBackground
-        source={require("../../assets/images/marble-white.jpg")}
-        resizeMode="cover"
-        style={{ flex: 1 }}
-      >
-        <Text>This is AccountScreen</Text>
-      </ImageBackground>
-    </S.Container>
+    <ImageBackground
+      source={require("../../assets/images/marble-white.jpg")}
+      resizeMode="cover"
+      style={{ flex: 1 }}
+    >
+      <S.Container>
+        <Header title="Account Screen" color={theme.secondary.color} />
+        <S.InputFieldContainer>
+          <InputField placeHolder="First name" />
+          <InputField placeHolder="Second name" />
+          <InputField placeHolder="Email" />
+          <PasswordInputField
+            placeHolder="Password"
+            showPassword={showPassword}
+            onPress={() => setShowPassword(!showPassword)}
+          />
+        </S.InputFieldContainer>
+      </S.Container>
+      <TextButton
+        color="red"
+        buttonText="Delete account"
+        onPress={() => {
+          console.log("click");
+        }}
+      />
+    </ImageBackground>
   );
 };
 
