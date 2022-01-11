@@ -1,18 +1,11 @@
+import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import theme from "../../theme";
 import Typography from "../Typography";
 import * as S from "./styled";
 
 const UpdateBox = () => {
-  const [currentDate, setCurrentDate] = useState("");
-
-  useEffect(() => {
-    const date = new Date().getDate().toString();
-    const month = new Date().getMonth().toString();
-    const year = new Date().getFullYear().toString();
-
-    setCurrentDate(date + "/" + month + "-" + year);
-  }, []);
+  const date = format(new Date(), "dd/MM-yyyy");
 
   return (
     <S.Box>
@@ -25,7 +18,7 @@ const UpdateBox = () => {
         />
         <S.DateContainer>
           <Typography
-            title={currentDate}
+            title={date}
             size={20}
             weight="semi-bold"
             color={theme.secondary.onColor}
