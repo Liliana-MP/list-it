@@ -1,10 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity } from "react-native";
-import { CogIcon } from "react-native-heroicons/outline";
-import { ScreenRoute, TabRoute } from "../../navigation/constants";
+
+import Typography from "../../components/Typography";
+import { TabRoute } from "../../navigation/constants";
 import { RootTabParamList } from "../../navigation/types";
-import * as S from "../ListScreen/styled";
+import theme from "../../theme";
+import * as S from "./styled";
 
 type NotificationScreenProps = NativeStackScreenProps<
   RootTabParamList,
@@ -19,7 +21,13 @@ const NotificationScreen = ({ navigation }: NotificationScreenProps) => {
         resizeMode="cover"
         style={{ flex: 1 }}
       >
-        <Text>This is NotificationScreen</Text>
+        <S.TextContainer>
+          <Typography
+            color={theme.secondary.color}
+            size={50}
+            title="Coming Soon"
+          />
+        </S.TextContainer>
       </ImageBackground>
     </S.Container>
   );
