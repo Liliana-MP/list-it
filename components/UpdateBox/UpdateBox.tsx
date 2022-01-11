@@ -4,12 +4,25 @@ import theme from "../../theme";
 import Typography from "../Typography";
 import * as S from "./styled";
 
-const UpdateBox = () => {
+interface UpdateBoxProps {
+  userName: string;
+}
+
+const UpdateBox = ({ userName }: UpdateBoxProps) => {
   const date = format(new Date(), "dd/MM-yyyy");
 
   return (
     <S.Box>
       <S.BoxContainer>
+        <S.NameContainer>
+          <Typography
+            size={30}
+            weight="light"
+            title={"Hi " + userName}
+            color="white"
+          />
+        </S.NameContainer>
+
         <Typography
           title={"Today"}
           size={15}
@@ -24,18 +37,6 @@ const UpdateBox = () => {
             color={theme.secondary.onColor}
           />
         </S.DateContainer>
-        <Typography
-          title={"You added toiletpaper to Home"}
-          size={15}
-          weight="light"
-          color={theme.secondary.onColor}
-        />
-        <Typography
-          title={"Valle added apples to Home"}
-          size={15}
-          weight="light"
-          color={theme.secondary.onColor}
-        />
       </S.BoxContainer>
     </S.Box>
   );

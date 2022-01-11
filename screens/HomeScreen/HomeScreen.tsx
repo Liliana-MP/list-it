@@ -28,6 +28,8 @@ const listButtons = [
   { id: "8", name: "Random" },
 ];
 
+const user = { id: "1", firstName: "Liliana", lastName: "Montini Pitra" };
+
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const renderItem = ({ item }: { item: List }) => {
     return (
@@ -48,10 +50,9 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       style={{ flex: 1 }}
     >
       <S.TitleContainer>
-        <Typography size={30} weight="light" title="Hi Lili" />
+        <S.Title> List It </S.Title>
       </S.TitleContainer>
-
-      <UpdateBox />
+      <UpdateBox userName={user.firstName} />
 
       <S.TextContainer>
         <Typography
