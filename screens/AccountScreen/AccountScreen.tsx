@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { ImageBackground } from "react-native";
+import Button from "../../components/Button";
 import Header from "../../components/Header";
 
 import InputField from "../../components/InputField";
@@ -38,13 +39,38 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
           />
         </S.InputFieldContainer>
       </S.Container>
-      <TextButton
-        color="red"
-        buttonText="Delete account"
-        onPress={() => {
-          console.log("click");
-        }}
-      />
+      <S.TextButtonContainer>
+        <TextButton
+          color="red"
+          buttonText="Delete account"
+          onPress={() => {
+            console.log("click");
+          }}
+        />
+      </S.TextButtonContainer>
+
+      <S.ButtonContainer>
+        <S.SaveButtonContainer>
+          <Button
+            type="s-regular"
+            title="Save"
+            color={theme.primary.color}
+            textColor={theme.secondary.onColor}
+            onPress={() => {
+              console.log("clickkk");
+            }}
+          />
+        </S.SaveButtonContainer>
+        <Button
+          type="signOut"
+          title="Sign out"
+          color={theme.secondary.color}
+          textColor={theme.secondary.onColor}
+          onPress={() => {
+            console.log("clickkk");
+          }}
+        />
+      </S.ButtonContainer>
     </ImageBackground>
   );
 };

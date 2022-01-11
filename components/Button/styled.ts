@@ -26,6 +26,37 @@ export const RegularButton = styled.TouchableOpacity<ButtonProps>`
   height: 50px;
 `;
 
+export const SmallRegularButton = styled.TouchableOpacity<ButtonProps>`
+  margin: 5px 0px;
+  border-radius: 5px;
+  background-color: ${(props) => props.color};
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 60px;
+  ${boxShadow}
+`;
+
+export const SignOutButton = styled.TouchableOpacity<ButtonProps>`
+  margin: 5px 0px;
+  border-radius: 5px;
+  background-color: ${(props) => props.color};
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 60px;
+  ${boxShadow}
+`;
+
+export const SignOutContainer = styled.View`
+  width: 75%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const SquareButton = styled.TouchableOpacity<ButtonProps>`
   margin: 5px 8px;
   border-radius: 8px;
