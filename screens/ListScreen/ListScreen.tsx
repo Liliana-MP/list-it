@@ -112,7 +112,7 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
             }
           >
             <S.TopBar>
-              <CogIcon height={38} width={38} color="black" />
+              <CogIcon height={38} width={38} color={theme.secondary.color} />
             </S.TopBar>
           </TouchableOpacity>
 
