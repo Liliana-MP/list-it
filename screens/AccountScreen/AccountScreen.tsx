@@ -25,7 +25,7 @@ const onDelete = () => {
 
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const [showPassword, setShowPassword] = useState(true);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <ImageBackground
