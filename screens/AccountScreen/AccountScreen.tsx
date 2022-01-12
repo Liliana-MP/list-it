@@ -19,10 +19,14 @@ type AccountScreenProps = NativeStackScreenProps<
   TabRoute.ACCOUNT_SCREEN
 >;
 
+const onDelete = () => {
+  console.log("Deleted");
+};
+
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const [showPassword, setShowPassword] = useState(true);
   const [modalVisible, setModalVisible] = useState(true);
-  const [textInput, setTextInput] = useState("");
+
   return (
     <ImageBackground
       source={require("../../assets/images/marble-white.jpg")}
@@ -34,9 +38,7 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         title="Delete account?"
-        onPress={() => {
-          console.log("click");
-        }}
+        onPress={onDelete}
       />
       <S.Container>
         <Header title="Account Screen" color={theme.secondary.color} />

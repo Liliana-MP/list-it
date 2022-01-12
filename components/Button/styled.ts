@@ -60,12 +60,25 @@ export const SignOutContainer = styled.View`
 export const SquareButton = styled.TouchableOpacity<ButtonProps>`
   margin: 5px 8px;
   border-radius: 8px;
-  width: 115px;
-  height: 115px;
+  width: 200px;
+  height: 250px;
   background-color: ${(props) => props.color};
   align-items: center;
-  justify-content: center;
   ${boxShadow}
+`;
+
+export const TitleContainer = styled.View`
+  margin: 10px 0px;
+`;
+
+export const OngoingContainer = styled.View`
+  align-items: center;
+  margin: 10px 0px;
+`;
+
+export const DoneContainer = styled.View`
+  align-items: center;
+  margin: 10px 0px;
 `;
 
 export const IconButton = styled.TouchableOpacity<ButtonProps>`

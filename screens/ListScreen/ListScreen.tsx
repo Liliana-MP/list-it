@@ -20,12 +20,13 @@ type ListScreenProps = NativeStackScreenProps<
 >;
 
 const listItems = [
-  { id: "1", name: "Milk" },
-  { id: "2", name: "Honey" },
-  { id: "3", name: "Pears" },
+  { id: "1", name: "Milk", done: false },
+  { id: "2", name: "Honey", done: false },
+  { id: "3", name: "Pears", done: false },
   {
     id: "4",
     name: "Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk ",
+    done: false,
   },
 ];
 
@@ -54,6 +55,7 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
     const tempList = [...onGoingItems];
     const index = tempList.findIndex((item) => item.id === id);
     const doneItem = tempList.splice(index, 1);
+    doneItem[0].done = true;
 
     setDoneItems([...doneItems, ...doneItem]);
     setOnGoingItems(tempList);
@@ -63,6 +65,7 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
     const tempList = [...doneItems];
     const index = tempList.findIndex((item) => item.id === id);
     const onGoingItem = tempList.splice(index, 1);
+    onGoingItems[0].done = false;
 
     setOnGoingItems([...onGoingItems, ...onGoingItem]);
     setDoneItems(tempList);

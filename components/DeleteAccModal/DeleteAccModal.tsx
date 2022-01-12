@@ -44,7 +44,7 @@ const DeleteAccModal = ({
             <Button type="icon" onPress={onPress} color={theme.success} />
             <Button
               type="icon"
-              onPress={onPress}
+              onPress={() => setModalVisible(!modalVisible)}
               color={theme.error}
               icon={<XIcon color="white" size={60} />}
             />

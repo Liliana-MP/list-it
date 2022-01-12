@@ -11,18 +11,30 @@ import theme from "../../theme";
 import Tabs from "../../navigation/TabNavigator";
 import { InputField } from "../../components/InputField/styled";
 import { Item, List } from "../../models/types";
+import ListButton from "../../components/ListButton";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenRoute.MAIN_SCREEN
 >;
 
+const listItems = [
+  { id: "1", name: "Milk", done: false },
+  { id: "2", name: "Honey", done: false },
+  { id: "3", name: "Pears", done: true },
+  {
+    id: "4",
+    name: "Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk ",
+    done: false,
+  },
+];
+
 const listButtons = [
-  { id: "1", name: "To list screen" },
-  { id: "2", name: "Home" },
-  { id: "3", name: "Vacation" },
-  { id: "4", name: "Groceries" },
-  { id: "5", name: "Obi" },
+  { id: "1", name: "Home", items: listItems },
+  { id: "2", name: "Random", items: listItems },
+  { id: "3", name: "Vacation", items: listItems },
+  { id: "4", name: "Groceries", items: listItems },
+  { id: "5", name: "Obi", items: listItems },
   { id: "6", name: "Computer parts" },
   { id: "7", name: "My christmas list" },
   { id: "8", name: "Random" },
@@ -32,6 +44,18 @@ const user = { id: "1", firstName: "Liliana", lastName: "Montini Pitra" };
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const renderItem = ({ item }: { item: List }) => {
+    let doneSum = "";
+    let ongoingSum = "";
+
+    if (item.items) {
+      doneSum = item.items
+        .filter((item) => item.done === true)
+        .length.toString();
+      ongoingSum = item.items
+        .filter((item) => item.done === false)
+        .length.toString();
+    }
+
     return (
       <Button
         type="square"
@@ -39,6 +63,8 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         textColor={theme.secondary.color}
         color={theme.color_codes.white}
         onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+        doneSum={doneSum}
+        ongoingSum={ongoingSum}
       />
     );
   };

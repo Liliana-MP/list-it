@@ -8,7 +8,6 @@ export const Container = styled.View`
 `;
 
 export const TextContainer = styled.View`
-  margin-top: 40px;
   margin-left: 20px;
 `;
 
@@ -21,6 +20,6 @@ export const Title = styled.Text`
 export const TitleContainer = styled.View`
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;

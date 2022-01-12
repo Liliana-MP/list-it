@@ -12,6 +12,8 @@ interface ButtonProps {
   type?: "regular" | "square" | "icon" | "s-regular" | "signOut";
   onPress: () => void;
   icon?: ReactNode;
+  ongoingSum?: string;
+  doneSum?: string;
 }
 
 const Button = ({
@@ -22,6 +24,8 @@ const Button = ({
   onPress,
   borderColor = "transparent",
   icon = <CheckIcon size={60} color="white" />,
+  ongoingSum = "0",
+  doneSum = "0",
 }: ButtonProps) => {
   if (type === "regular") {
     return (
@@ -57,12 +61,43 @@ const Button = ({
   } else if (type === "square") {
     return (
       <S.SquareButton color={color} onPress={onPress}>
-        <Typography
-          size={15}
-          title={title}
-          color={textColor}
-          weight="semi-bold"
-        />
+        <S.TitleContainer>
+          <Typography
+            size={20}
+            title={title}
+            color={textColor}
+            weight="semi-bold"
+            numberOfLines={1}
+          />
+        </S.TitleContainer>
+        <S.OngoingContainer>
+          <Typography
+            title={ongoingSum}
+            size={40}
+            weight="light"
+            color={theme.secondary.color}
+          />
+          <Typography
+            title="Ongoing"
+            size={14}
+            weight="bold"
+            color={theme.primary.color}
+          />
+        </S.OngoingContainer>
+        <S.DoneContainer>
+          <Typography
+            title={doneSum}
+            size={40}
+            weight="light"
+            color={theme.secondary.color}
+          />
+          <Typography
+            title="Done"
+            size={14}
+            weight="bold"
+            color={theme.primary.color}
+          />
+        </S.DoneContainer>
       </S.SquareButton>
     );
   } else if (type === "icon") {
