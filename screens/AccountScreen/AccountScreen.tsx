@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { ImageBackground } from "react-native";
 import Button from "../../components/Button";
+import DeleteAccModal from "../../components/DeleteAccModal";
 import Header from "../../components/Header";
 
 import InputField from "../../components/InputField";
@@ -20,12 +21,23 @@ type AccountScreenProps = NativeStackScreenProps<
 
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const [showPassword, setShowPassword] = useState(true);
+  const [modalVisible, setModalVisible] = useState(true);
+  const [textInput, setTextInput] = useState("");
   return (
     <ImageBackground
       source={require("../../assets/images/marble-white.jpg")}
       resizeMode="cover"
       style={{ flex: 1 }}
     >
+      <DeleteAccModal
+        color={theme.secondary.color}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        title="Delete account?"
+        onPress={() => {
+          console.log("click");
+        }}
+      />
       <S.Container>
         <Header title="Account Screen" color={theme.secondary.color} />
         <S.InputFieldContainer>
@@ -44,7 +56,7 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
           color="red"
           buttonText="Delete account"
           onPress={() => {
-            console.log("click");
+            setModalVisible(!modalVisible);
           }}
         />
       </S.TextButtonContainer>

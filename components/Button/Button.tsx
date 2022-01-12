@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { CheckIcon, LogoutIcon } from "react-native-heroicons/outline";
 import theme from "../../theme";
 import Typography from "../Typography";
@@ -11,6 +11,7 @@ interface ButtonProps {
   borderColor?: string;
   type?: "regular" | "square" | "icon" | "s-regular" | "signOut";
   onPress: () => void;
+  icon?: ReactNode;
 }
 
 const Button = ({
@@ -20,6 +21,7 @@ const Button = ({
   textColor,
   onPress,
   borderColor = "transparent",
+  icon = <CheckIcon size={60} color="white" />,
 }: ButtonProps) => {
   if (type === "regular") {
     return (
@@ -66,7 +68,7 @@ const Button = ({
   } else if (type === "icon") {
     return (
       <S.IconButton borderColor={borderColor} color={color} onPress={onPress}>
-        <CheckIcon color="white" size={60} />
+        {icon && icon}
       </S.IconButton>
     );
   } else {

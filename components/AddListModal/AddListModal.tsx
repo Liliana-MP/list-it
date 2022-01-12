@@ -1,11 +1,8 @@
 import React, { Dispatch, useState } from "react";
-import { View, Modal, Text, Alert } from "react-native";
-import { XIcon } from "react-native-heroicons/outline";
+import { Modal } from "react-native";
 import Toast from "react-native-toast-message";
-import theme from "../../theme";
 import Button from "../Button";
 import InputField from "../InputField";
-
 import Typography from "../Typography";
 import * as S from "./styled";
 
