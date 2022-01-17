@@ -12,6 +12,7 @@ import Tabs from "../../navigation/TabNavigator";
 import { InputField } from "../../components/InputField/styled";
 import { Item, List } from "../../models/types";
 import ListButton from "../../components/ListButton";
+import { ScrollView } from "react-native-gesture-handler";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -79,14 +80,6 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         <S.Title> List It </S.Title>
       </S.TitleContainer>
       <UpdateBox userName={user.firstName} />
-
-      <S.TextContainer>
-        <Typography
-          size={15}
-          title="Your lists"
-          color={theme.color_codes.black}
-        />
-      </S.TextContainer>
 
       <S.Container>
         <FlatList

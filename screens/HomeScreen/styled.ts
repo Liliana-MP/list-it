@@ -4,7 +4,7 @@ import theme from "../../theme";
 export const Container = styled.View`
   align-items: flex-start;
   flex-direction: row;
-  margin: 5px 0px 20px 15px;
+  margin-left: 15px;
 `;
 
 export const TextContainer = styled.View`
@@ -20,6 +20,6 @@ export const Title = styled.Text`
 export const TitleContainer = styled.View`
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 0px;
 `;

@@ -84,6 +84,7 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
       const newItem = {
         id: Math.random().toString(),
         name: textInput,
+        done: false,
       };
 
       setOnGoingItems([...onGoingItems, newItem]);

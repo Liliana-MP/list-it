@@ -1,3 +1,4 @@
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { boxShadow } from "../../theme/shadows";
 
@@ -9,6 +10,27 @@ interface ButtonProps {
 interface ButtonTextProps {
   textColor: string;
 }
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+const width = screenWidth / 2;
+const height = screenHeight / 3;
+
+export const SquareButton = styled.TouchableOpacity<ButtonProps>`
+  margin: 5px 8px;
+  border-radius: 8px;
+  width: ${width}px;
+  height: ${height}px;
+  background-color: ${(props) => props.color};
+  ${boxShadow}
+`;
+
+export const SquareContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  height: ${height}px;
+  width: ${width}px;
+`;
 
 export const ButtonContainer = styled.View`
   flex: 1;
@@ -55,16 +77,6 @@ export const SignOutContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-`;
-
-export const SquareButton = styled.TouchableOpacity<ButtonProps>`
-  margin: 5px 8px;
-  border-radius: 8px;
-  width: 200px;
-  height: 250px;
-  background-color: ${(props) => props.color};
-  align-items: center;
-  ${boxShadow}
 `;
 
 export const TitleContainer = styled.View`
