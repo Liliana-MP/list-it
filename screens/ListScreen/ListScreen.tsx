@@ -161,10 +161,10 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
               doneItems.map((item) => (
                 <ListButton
                   key={item.id}
+                  id={item.id}
                   type="item"
                   title={item.name}
                   color="white"
-                  isChecked={true}
                   onPress={() => setOnGoing(item.id)}
                 />
               ))}
