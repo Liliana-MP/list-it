@@ -9,12 +9,16 @@ interface PasswordInputProps {
   onPress: () => void;
   showPassword: boolean;
   placeHolder: string;
+  value?: string;
+  onChangeText?: (text: string) => void;
 }
 
 const PasswordInputField = ({
   onPress,
   showPassword,
   placeHolder,
+  value,
+  onChangeText,
 }: PasswordInputProps) => {
   return (
     <S.Container>
@@ -22,6 +26,8 @@ const PasswordInputField = ({
         type="password"
         placeHolder={placeHolder}
         secureTextEntry={showPassword}
+        value={value}
+        onChangeText={onChangeText}
       />
       <TouchableOpacity onPress={onPress}>
         {showPassword ? (

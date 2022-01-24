@@ -23,6 +23,8 @@ const InputField = ({
       <S.PasswordField
         placeholder={placeHolder}
         secureTextEntry={secureTextEntry}
+        value={value}
+        onChangeText={onChangeText}
       />
     );
   } else if (type === "modal") {
@@ -34,7 +36,13 @@ const InputField = ({
       />
     );
   } else {
-    return <S.InputField placeholder={placeHolder} />;
+    return (
+      <S.InputField
+        placeholder={placeHolder}
+        value={value}
+        onChangeText={onChangeText}
+      />
+    );
   }
 };
 
