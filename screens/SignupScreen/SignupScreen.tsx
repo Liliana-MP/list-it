@@ -9,6 +9,7 @@ import * as S from "./styled";
 import PasswordInputField from "../../components/PasswordInputField";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Toast from "react-native-toast-message";
 
 type SignupScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -29,7 +30,11 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
         navigation.navigate(ScreenRoute.MAIN_SCREEN);
       })
       .catch((error) => {
-        console.log("error", error);
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: error.message,
+        });
       });
   };
 

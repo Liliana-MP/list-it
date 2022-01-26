@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
@@ -9,6 +9,13 @@ import theme from "../../theme";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Textbutton from "../../components/TextButton/TextButton";
 import PasswordInputField from "../../components/PasswordInputField";
+import { auth } from "../../firebase";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import Toast from "react-native-toast-message";
 
 type LoginScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -17,6 +24,51 @@ type LoginScreenProps = NativeStackScreenProps<
 
 const LoginScreen = ({ navigation }: LoginScreenProps) => {
   const [showPassword, setShowPassword] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.navigate(ScreenRoute.MAIN_SCREEN);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const logIn = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        navigation.navigate(ScreenRoute.MAIN_SCREEN);
+      })
+      .catch((error) => {
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: error.message,
+        });
+      });
+  };
+
+  const forgotPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: "Email sent",
+        });
+      })
+      .catch((error) => {
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: error.message,
+        });
+      });
+  };
   return (
     <S.Container>
       <S.VideoBackground
@@ -29,11 +81,17 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
 
       <S.Title> List It </S.Title>
       <S.InputFieldContainer>
-        <InputField placeHolder="Email" />
+        <InputField
+          placeHolder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
         <PasswordInputField
           onPress={() => setShowPassword(!showPassword)}
           showPassword={showPassword}
           placeHolder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
         />
       </S.InputFieldContainer>
       <S.ButtonContainer>
@@ -49,7 +107,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
           title="Sign in"
           color={theme.primary.color}
           textColor={theme.primary.onColor}
-          onPress={() => navigation.navigate(ScreenRoute.MAIN_SCREEN)}
+          onPress={logIn}
         />
         <Button
           type="regular"
@@ -58,7 +116,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
           textColor={theme.secondary.onColor}
           onPress={() => navigation.navigate(ScreenRoute.SIGNUP_SCREEN)}
         />
-        <Textbutton buttonText="Forgot Password" />
+        <Textbutton buttonText="Forgot Password" onPress={forgotPassword} />
       </S.ButtonContainer>
     </S.Container>
   );

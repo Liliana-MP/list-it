@@ -4,19 +4,19 @@ import { ImageBackground } from "react-native";
 import Button from "../../components/Button";
 import DeleteAccModal from "../../components/DeleteAccModal";
 import Header from "../../components/Header";
-
 import InputField from "../../components/InputField";
 import PasswordInputField from "../../components/PasswordInputField";
 import TextButton from "../../components/TextButton";
-
-import { TabRoute } from "../../navigation/constants";
-import { RootTabParamList } from "../../navigation/types";
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
+import { ScreenRoute, TabRoute } from "../../navigation/constants";
+import { RootStackParamList, RootTabParamList } from "../../navigation/types";
 import theme from "../../theme";
 import * as S from "./styled";
 
 type AccountScreenProps = NativeStackScreenProps<
-  RootTabParamList,
-  TabRoute.ACCOUNT_SCREEN
+  RootStackParamList,
+  ScreenRoute.MAIN_SCREEN
 >;
 
 const onDelete = () => {
@@ -26,6 +26,12 @@ const onDelete = () => {
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const [showPassword, setShowPassword] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const signOutUser = () => {
+    signOut(auth);
+    navigation.navigate(ScreenRoute.LOGIN_SCREEN);
+    console.log("signed out");
+  };
 
   return (
     <ImageBackground
@@ -80,9 +86,7 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
           title="Sign out"
           color={theme.secondary.color}
           textColor={theme.secondary.onColor}
-          onPress={() => {
-            console.log("clickkk");
-          }}
+          onPress={signOutUser}
         />
       </S.ButtonContainer>
     </ImageBackground>
