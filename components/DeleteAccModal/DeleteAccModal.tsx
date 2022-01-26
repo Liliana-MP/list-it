@@ -3,7 +3,6 @@ import { Modal } from "react-native";
 import { XIcon } from "react-native-heroicons/outline";
 import theme from "../../theme";
 import Button from "../Button";
-import InputField from "../InputField";
 import Typography from "../Typography";
 import * as S from "./styled";
 
