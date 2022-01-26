@@ -86,6 +86,8 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
           onPress={() => setShowConfirmPassword(!showConfirmPassword)}
           showPassword={showConfirmPassword}
           placeHolder="Retype Password"
+          value={confirmPassword}
+          onChangeText={(text) => setConfirmPassword(text)}
         />
       </S.InputFieldContainer>
 
