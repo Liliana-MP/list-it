@@ -18,24 +18,33 @@ type SignupScreenProps = NativeStackScreenProps<
 
 const SignupScreen = ({ navigation }: SignupScreenProps) => {
   const [showPassword, setShowPassword] = useState(true);
-  const [showRetypePassword, setShowRetypePassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const signUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.navigate(ScreenRoute.MAIN_SCREEN);
-      })
-      .catch((error) => {
-        Toast.show({
-          type: "error",
-          text1: "Error",
-          text2: error.message,
+    if (password === confirmPassword) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          navigation.navigate(ScreenRoute.MAIN_SCREEN);
+        })
+        .catch((error) => {
+          Toast.show({
+            type: "error",
+            text1: "Error",
+            text2: error.message,
+          });
         });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Passwords do not match",
       });
+    }
   };
 
   return (
@@ -74,8 +83,8 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
         />
 
         <PasswordInputField
-          onPress={() => setShowRetypePassword(!showRetypePassword)}
-          showPassword={showRetypePassword}
+          onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+          showPassword={showConfirmPassword}
           placeHolder="Retype Password"
         />
       </S.InputFieldContainer>
