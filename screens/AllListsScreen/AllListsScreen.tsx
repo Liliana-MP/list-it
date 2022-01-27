@@ -1,23 +1,27 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  FlatList,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import { CogIcon } from "react-native-heroicons/outline";
+import { FlatList, ImageBackground } from "react-native";
 import Toast from "react-native-toast-message";
 import AddListModal from "../../components/AddListModal";
 import CustomTabBarButton from "../../components/CustomTabBarButton";
 import Header from "../../components/Header";
 import ListButton from "../../components/ListButton";
 import { List } from "../../models/types";
-
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
 import * as S from "./styled";
+import { db } from "../../firebase";
+import { auth } from "../../firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  CollectionReference,
+  DocumentData,
+  query,
+  where,
+} from "firebase/firestore";
 
 type AllListsScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -46,9 +50,22 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
   const [textInput, setTextInput] = useState("");
   const [allLists, setAllLists] = useState<List[]>([]);
 
+  // Hur gör jag för att lägga till data som jag får från Firestore i min allLists ?
   useEffect(() => {
-    setAllLists(lists);
+    const testing = getData2();
+    setAllLists(testing);
   }, []);
+
+  const getData2 = async () => {
+    const listRef = collection(db, "lists");
+    const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
+
+    const querySnapshot = await getDocs(q);
+
+    const testArray = querySnapshot.docs.map((q) => q.data());
+    console.log(testArray);
+    return testArray;
+  };
 
   // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe ifall listan försvinner
   const onDismiss = useCallback((id: string) => {
@@ -57,19 +74,6 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
       allLists.splice(index, 1);
     }
   }, []);
-
-  const renderItem = ({ item }: { item: List }) => {
-    return (
-      <ListButton
-        type="list"
-        title={item.name}
-        color={theme.primary_lighter.color}
-        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
-        id={item.id}
-        onDismiss={onDismiss}
-      />
-    );
-  };
 
   const addList = () => {
     if (textInput == "") {
@@ -92,6 +96,31 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
     }
   };
 
+  const addData = async () => {
+    if (textInput !== "") {
+      await addDoc(collection(db, "lists"), {
+        items: {},
+        name: textInput,
+        userId: auth.currentUser?.email,
+      });
+      setTextInput("");
+      setModalVisible(!modalVisible);
+    }
+  };
+
+  const renderItem = ({ item }: { item: List }) => {
+    return (
+      <ListButton
+        type="list"
+        title={item.name}
+        color={theme.primary_lighter.color}
+        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+        id={item.id}
+        onDismiss={onDismiss}
+      />
+    );
+  };
+
   return (
     <S.Container>
       <AddListModal
@@ -99,7 +128,7 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         modalVisible={modalVisible}
         color={theme.primary.color}
         title="Add new list"
-        onPress={addList}
+        onPress={addData}
         value={textInput}
         onChangeText={(text: string) => setTextInput(text)}
       />
