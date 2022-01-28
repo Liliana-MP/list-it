@@ -51,10 +51,10 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
   const [allLists, setAllLists] = useState<List[]>([]);
 
   useEffect(() => {
-    getData2();
+    getData();
   }, []);
 
-  const getData2 = () => {
+  const getData = () => {
     const listRef = collection(db, "lists");
     const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
     let dataArray = [] as DocumentData[];
@@ -74,13 +74,6 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
 
   const addList = () => {
     if (textInput == "") {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Please input text",
-        position: "top",
-        topOffset: 80,
-      });
     } else {
       const newList = {
         id: Math.random().toString(),
@@ -101,7 +94,16 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         userId: auth.currentUser?.email,
       });
       setTextInput("");
+      getData();
       setModalVisible(!modalVisible);
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Please input text",
+        position: "top",
+        topOffset: 80,
+      });
     }
   };
 
