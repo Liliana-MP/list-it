@@ -55,7 +55,6 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
     });
   };
 
-  // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe ifall listan försvinner
   const onDismiss = useCallback(async (id: string) => {
     console.log("id", id);
     const index = allLists.findIndex((item) => item.id === id);

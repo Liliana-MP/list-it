@@ -18,7 +18,6 @@ import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
 import * as S from "./styled";
 import Toast from "react-native-toast-message";
-import PromptCredentialsModal from "../../components/PromptCredentialsModal";
 
 type AccountScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -69,18 +68,6 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
-      {/* <PromptCredentialsModal
-        color={theme.secondary.color}
-        modalVisible={credentialsModalVisible}
-        setModalVisible={setCredentialsModalVisible}
-        title="Re-authenticate"
-        onPress={() => setCredentialsModalVisible(!credentialsModalVisible)}
-        onChangeEmail={(text: string) => setEmailInput(text)}
-        onChangePassword={(text: string) => setPasswordInput(text)}
-        emailValue={emailInput}
-        passwordValue={passwordInput}
-      /> */}
-
       <DeleteAccModal
         color={theme.secondary.color}
         modalVisible={modalVisible}
