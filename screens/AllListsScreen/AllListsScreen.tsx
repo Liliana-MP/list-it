@@ -50,21 +50,16 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
   const [textInput, setTextInput] = useState("");
   const [allLists, setAllLists] = useState<List[]>([]);
 
-  // Hur gör jag för att lägga till data som jag får från Firestore i min allLists ?
   useEffect(() => {
     getData2();
   }, []);
 
   const getData2 = () => {
-    console.log("steg 1");
-
     const listRef = collection(db, "lists");
     const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
     let dataArray = [] as DocumentData[];
-    console.log("steg 2");
     getDocs(q).then((querySnapshot) => {
       dataArray = querySnapshot.docs.map((q) => q.data());
-
       setAllLists(dataArray as List[]);
     });
   };
