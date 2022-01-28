@@ -52,19 +52,21 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
 
   // Hur gör jag för att lägga till data som jag får från Firestore i min allLists ?
   useEffect(() => {
-    const testing = getData2();
-    setAllLists(testing);
+    getData2();
   }, []);
 
-  const getData2 = async () => {
+  const getData2 = () => {
+    console.log("steg 1");
+
     const listRef = collection(db, "lists");
     const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
+    let dataArray = [] as DocumentData[];
+    console.log("steg 2");
+    getDocs(q).then((querySnapshot) => {
+      dataArray = querySnapshot.docs.map((q) => q.data());
 
-    const querySnapshot = await getDocs(q);
-
-    const testArray = querySnapshot.docs.map((q) => q.data());
-    console.log(testArray);
-    return testArray;
+      setAllLists(dataArray as List[]);
+    });
   };
 
   // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe ifall listan försvinner
