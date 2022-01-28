@@ -21,29 +21,14 @@ import {
   DocumentData,
   query,
   where,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 
 type AllListsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenRoute.MAIN_SCREEN
 >;
-
-const lists = [
-  { id: "1", name: "Hejsan Hejsan Hejsan Hejsan Hejsan Hejsan" },
-  { id: "2", name: "Home" },
-  { id: "3", name: "Vacation" },
-  { id: "4", name: "Groceries" },
-  { id: "5", name: "Obi" },
-  { id: "6", name: "Computer parts" },
-  { id: "7", name: "Vacation" },
-  { id: "8", name: "Groceries" },
-  { id: "9", name: "Obi" },
-  { id: "10", name: "Computer parts" },
-  { id: "11", name: "Vacation" },
-  { id: "12", name: "Groceries" },
-  { id: "13", name: "Obi" },
-  { id: "14", name: "Computer parts" },
-];
 
 const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,32 +44,27 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
     const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
     let dataArray = [] as DocumentData[];
     getDocs(q).then((querySnapshot) => {
-      dataArray = querySnapshot.docs.map((q) => q.data());
+      querySnapshot.docs.forEach((q) =>
+        dataArray.push({
+          id: q.id,
+          name: q.data().name,
+          items: q.data().items,
+        })
+      );
       setAllLists(dataArray as List[]);
     });
   };
 
   // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe ifall listan försvinner
-  const onDismiss = useCallback((id: string) => {
+  const onDismiss = useCallback(async (id: string) => {
+    console.log("id", id);
     const index = allLists.findIndex((item) => item.id === id);
     if (index !== -1) {
       allLists.splice(index, 1);
     }
+
+    await deleteDoc(doc(db, "lists", id));
   }, []);
-
-  const addList = () => {
-    if (textInput == "") {
-    } else {
-      const newList = {
-        id: Math.random().toString(),
-        name: textInput,
-      };
-
-      setAllLists([...allLists, newList]);
-      setTextInput("");
-      setModalVisible(!modalVisible);
-    }
-  };
 
   const addData = async () => {
     if (textInput !== "") {

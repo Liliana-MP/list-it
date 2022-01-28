@@ -1,4 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
@@ -8,6 +15,7 @@ import CustomTabBarButton from "../../components/CustomTabBarButton";
 import Header from "../../components/Header";
 import ListButton from "../../components/ListButton";
 import Typography from "../../components/Typography";
+import { auth, db } from "../../firebase";
 import { Item } from "../../models/types";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
@@ -39,6 +47,23 @@ const ListScreen = ({ navigation }: ListScreenProps) => {
   useEffect(() => {
     setOnGoingItems(listItems);
   }, []);
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  // const getData = () => {
+  //   const listRef = collection(db, "lists");
+  //   const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
+  //   let dataArray = [] as DocumentData[];
+  //   getDocs(q).then((querySnapshot) => {
+  //     dataArray = querySnapshot.docs.map((q) => q.data());
+  //     console.log(querySnapshot.docs.map((q) => q.id));
+  //     console.log(dataArray);
+
+  //     setAllLists(dataArray as List[]);
+  //   });
+  // };
 
   // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe
   const onDismiss = useCallback((id: string) => {
