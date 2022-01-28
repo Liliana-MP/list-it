@@ -1,3 +1,4 @@
+import { Item } from "../models/types";
 import { ScreenRoute, TabRoute } from "./constants";
 
 export type RootStackParamList = {
@@ -5,7 +6,7 @@ export type RootStackParamList = {
   [ScreenRoute.LOGIN_SCREEN]: undefined;
   [ScreenRoute.LIST_SETTINGS_SCREEN]: undefined;
   [ScreenRoute.SIGNUP_SCREEN]: undefined;
-  [ScreenRoute.LIST_SCREEN]: undefined;
+  [ScreenRoute.LIST_SCREEN]: Item[];
 };
 
 export type RootTabParamList = {

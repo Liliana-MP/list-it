@@ -7,9 +7,10 @@ import InputField from "../../components/InputField";
 import theme from "../../theme";
 import * as S from "./styled";
 import PasswordInputField from "../../components/PasswordInputField";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Toast from "react-native-toast-message";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 type SignupScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -25,10 +26,20 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const addUser = async () => {
+    const userRef = doc(db, "users", email);
+    await setDoc(userRef, {
+      firstname: firstName,
+      lastname: lastName,
+      email: email,
+    });
+  };
+
   const signUp = () => {
     if (password === confirmPassword) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
+          addUser();
           navigation.navigate(ScreenRoute.MAIN_SCREEN);
         })
         .catch((error) => {

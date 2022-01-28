@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, FlatList, Modal } from "react-native";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
@@ -13,6 +13,14 @@ import { InputField } from "../../components/InputField/styled";
 import { Item, List } from "../../models/types";
 import ListButton from "../../components/ListButton";
 import { ScrollView } from "react-native-gesture-handler";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { auth, db } from "../../firebase";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -44,18 +52,42 @@ const listButtons = [
 const user = { id: "1", firstName: "Liliana", lastName: "Montini Pitra" };
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
+  const [allLists, setAllLists] = useState<List[]>([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    const listRef = collection(db, "lists");
+    const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
+    let dataArray = [] as DocumentData[];
+    getDocs(q).then((querySnapshot) => {
+      querySnapshot.docs.forEach((q) =>
+        dataArray.push({
+          id: q.id,
+          name: q.data().name,
+          items: q.data().items,
+        })
+      );
+      setAllLists(dataArray as List[]);
+    });
+  };
+
   const renderItem = ({ item }: { item: List }) => {
     let doneSum = "";
     let ongoingSum = "";
+    console.log("item", item);
 
-    if (item.items) {
-      doneSum = item.items
-        .filter((item) => item.done === true)
-        .length.toString();
-      ongoingSum = item.items
-        .filter((item) => item.done === false)
-        .length.toString();
-    }
+    // Funkar inte just nu när man hämtar listor från firebase
+    // if (item.items) {
+    //   doneSum = item.items
+    //     .filter((item) => item.done === true)
+    //     .length.toString();
+    //   ongoingSum = item.items
+    //     .filter((item) => item.done === false)
+    //     .length.toString();
+    // }
 
     return (
       <Button
@@ -83,7 +115,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
       <S.Container>
         <FlatList
-          data={listButtons}
+          data={allLists}
           horizontal
           renderItem={renderItem}
           keyExtractor={(item) => item.id}

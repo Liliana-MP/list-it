@@ -27,7 +27,6 @@ type AccountScreenProps = NativeStackScreenProps<
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const [showPassword, setShowPassword] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [credentialsModalVisible, setCredentialsModalVisible] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
 

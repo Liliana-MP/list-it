@@ -27,43 +27,37 @@ type ListScreenProps = NativeStackScreenProps<
   ScreenRoute.LIST_SCREEN
 >;
 
-const listItems = [
-  { id: "1", name: "Milk", done: false },
-  { id: "2", name: "Honey", done: false },
-  { id: "3", name: "Pears", done: false },
-  {
-    id: "4",
-    name: "Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk ",
-    done: false,
-  },
-];
-
-const ListScreen = ({ navigation }: ListScreenProps) => {
+const ListScreen = ({ navigation, route }: ListScreenProps) => {
   const [onGoingItems, setOnGoingItems] = useState<Item[]>([]);
   const [doneItems, setDoneItems] = useState<Item[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
 
+  const { params: items } = route;
+
+  console.log("items", items);
+
+  // steg 1 - hämta items
+  // steg 2 - rendera ut basert på done
+
   useEffect(() => {
-    setOnGoingItems(listItems);
+    covertToArray();
   }, []);
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const covertToArray = () => {
+    const convertedItems = [] as Item[];
+    for (let item in items) {
+      const newItem = {
+        id: items[item].id,
+        name: items[item].name,
+        done: items[item].done,
+      };
+      convertedItems.push(newItem);
+    }
 
-  // const getData = () => {
-  //   const listRef = collection(db, "lists");
-  //   const q = query(listRef, where("userId", "==", auth?.currentUser?.email));
-  //   let dataArray = [] as DocumentData[];
-  //   getDocs(q).then((querySnapshot) => {
-  //     dataArray = querySnapshot.docs.map((q) => q.data());
-  //     console.log(querySnapshot.docs.map((q) => q.id));
-  //     console.log(dataArray);
-
-  //     setAllLists(dataArray as List[]);
-  //   });
-  // };
+    setOnGoingItems(convertedItems.filter((item) => item.done === false));
+    setDoneItems(convertedItems.filter((item) => item.done === true));
+  };
 
   // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe
   const onDismiss = useCallback((id: string) => {

@@ -1,7 +1,7 @@
 export type List = {
   id: string;
   name: string;
-  items?: Item[];
+  items: Item[];
 };
 
 export type Item = {

@@ -11,13 +11,11 @@ import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
 import * as S from "./styled";
-import { db } from "../../firebase";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import {
   collection,
   getDocs,
   addDoc,
-  CollectionReference,
   DocumentData,
   query,
   where,
@@ -92,7 +90,7 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         type="list"
         title={item.name}
         color={theme.primary_lighter.color}
-        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN, item.items)}
         id={item.id}
         onDismiss={onDismiss}
       />
