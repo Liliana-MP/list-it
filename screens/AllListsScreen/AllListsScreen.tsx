@@ -54,7 +54,6 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
   };
 
   const onDismiss = useCallback(async (id: string) => {
-    console.log("id", id);
     const index = allLists.findIndex((item) => item.id === id);
     if (index !== -1) {
       allLists.splice(index, 1);
@@ -90,7 +89,7 @@ const AllListsScreen = ({ navigation }: AllListsScreenProps) => {
         type="list"
         title={item.name}
         color={theme.primary_lighter.color}
-        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN, item.items)}
+        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN, item)}
         id={item.id}
         onDismiss={onDismiss}
       />

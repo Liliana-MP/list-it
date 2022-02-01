@@ -1,11 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import {
-  collection,
-  DocumentData,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { deleteField, doc, updateDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
@@ -33,12 +27,10 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
 
-  const { params: items } = route;
+  const { params: list } = route;
+  const { items } = list;
 
-  console.log("items", items);
-
-  // steg 1 - hämta items
-  // steg 2 - rendera ut basert på done
+  const listRef = doc(db, "lists", list.id);
 
   useEffect(() => {
     covertToArray();
@@ -46,6 +38,7 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
 
   const covertToArray = () => {
     const convertedItems = [] as Item[];
+
     for (let item in items) {
       const newItem = {
         id: items[item].id,
@@ -54,21 +47,29 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
       };
       convertedItems.push(newItem);
     }
-
     setOnGoingItems(convertedItems.filter((item) => item.done === false));
     setDoneItems(convertedItems.filter((item) => item.done === true));
   };
 
-  // Verkar fungera korrekt men dubbelkolla sen när firebase är uppe
-  const onDismiss = useCallback((id: string) => {
+  const onDismiss = async (id: string) => {
     const onGoingIndex = onGoingItems.findIndex((item) => item.id === id);
+    let getName = onGoingItems.find((item) => item.id === id)?.name || "";
+    const getID = onGoingItems.find((item) => item.id === id)?.id;
+    console.log("getID", getID);
+    console.log("ongoing", onGoingItems);
+
     if (onGoingIndex !== -1) {
       onGoingItems.splice(onGoingIndex, 1);
     } else {
       const doneIndex = doneItems.findIndex((item) => item.id === id);
+      getName = doneItems.find((item) => item.id === id)?.name || "";
       doneItems.splice(doneIndex, 1);
     }
-  }, []);
+
+    await updateDoc(listRef, {
+      [`items.${getName}`]: deleteField(),
+    });
+  };
 
   const setDone = (id: string) => {
     const tempList = [...onGoingItems];
