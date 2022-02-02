@@ -61,7 +61,7 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
   return (
     <S.Container>
       <S.VideoBackground
-        source={require("../../assets/videos/background-video.mp4")}
+        source={require("../../assets/videos/background-video-3.mp4")}
         rate={1}
         shouldPlay={true}
         isLooping={true}

@@ -1,24 +1,19 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground } from "react-native";
 import Button from "../../components/Button";
 import DeleteAccModal from "../../components/DeleteAccModal";
 import Header from "../../components/Header";
 import InputField from "../../components/InputField";
-import PasswordInputField from "../../components/PasswordInputField";
 import TextButton from "../../components/TextButton";
-import { auth } from "../../firebase";
-import {
-  deleteUser,
-  reauthenticateWithCredential,
-  signOut,
-  updateEmail,
-} from "firebase/auth";
+import { auth, db } from "../../firebase";
+import { deleteUser, signOut, updateEmail } from "firebase/auth";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
 import * as S from "./styled";
 import Toast from "react-native-toast-message";
+import { doc } from "firebase/firestore";
 
 type AccountScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -60,14 +55,26 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
     }
   };
 
-  // const updateAccountInfo = () => {
-  //   if(emailInput != ""){
-  //     updateEmail(auth.currentUser, emailInput)
-  //     .then(() => {
+  const updateAccountInfo = () => {
+    if (emailInput != "" && user != null) {
+      // const userRef = doc(db, "users", user.email);
 
-  //     })
-  //   }
-  // };
+      updateEmail(user, emailInput)
+        .then(() => {
+          Toast.show({
+            type: "Success",
+            text1: "Email updated",
+          });
+        })
+        .catch((error) => {
+          Toast.show({
+            type: "error",
+            text1: "Error",
+            text2: error.message,
+          });
+        });
+    }
+  };
 
   return (
     <ImageBackground
@@ -87,7 +94,7 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
         <Header title="Account Screen" color={theme.secondary.color} />
         <S.InputFieldContainer>
           <InputField placeHolder="First name" />
-          <InputField placeHolder="Second name" />
+          <InputField placeHolder="Last name" />
           <InputField placeHolder="Email" />
         </S.InputFieldContainer>
       </S.Container>
