@@ -77,17 +77,25 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const renderItem = ({ item }: { item: List }) => {
     let doneSum = "";
     let ongoingSum = "";
-    console.log("item", item);
 
-    // Funkar inte just nu när man hämtar listor från firebase
-    // if (item.items) {
-    //   doneSum = item.items
-    //     .filter((item) => item.done === true)
-    //     .length.toString();
-    //   ongoingSum = item.items
-    //     .filter((item) => item.done === false)
-    //     .length.toString();
-    // }
+    const convertedItems = [] as Item[];
+    for (let i in item.items) {
+      const newItem = {
+        id: item.items[i].id,
+        name: item.items[i].name,
+        done: item.items[i].done,
+      };
+      convertedItems.push(newItem);
+    }
+
+    if (convertedItems) {
+      doneSum = convertedItems
+        .filter((item) => item.done === true)
+        .length.toString();
+      ongoingSum = convertedItems
+        .filter((item) => item.done === false)
+        .length.toString();
+    }
 
     return (
       <Button

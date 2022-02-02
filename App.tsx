@@ -3,10 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigation/StackNavigator";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
-import Tabs from "./navigation/TabNavigator";
 import Toast from "react-native-toast-message";
+import { LogBox } from "react-native";
 
 export default function App() {
+  LogBox.ignoreLogs(["Setting a timer"]);
+
   const [loaded] = useFonts({
     "Montserrat-Light": require("./assets/fonts/Montserrat-Light.ttf"),
     "Montserrat-Medium": require("./assets/fonts/Montserrat-Medium.ttf"),
@@ -19,6 +21,7 @@ export default function App() {
   if (!loaded) {
     return null;
   }
+
   return (
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1 }}>

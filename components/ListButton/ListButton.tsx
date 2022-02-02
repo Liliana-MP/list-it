@@ -24,6 +24,7 @@ interface ListButtonProps {
   color?: string;
   onDismiss?: (id: string) => void;
   id: string;
+  isChecked?: boolean;
 }
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -36,6 +37,7 @@ const ListButton = ({
   color = "white",
   onDismiss,
   id,
+  isChecked = false,
 }: ListButtonProps) => {
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(60);
@@ -136,6 +138,7 @@ const ListButton = ({
                   iconStyle={{
                     borderRadius: 5,
                   }}
+                  isChecked={isChecked}
                 />
               </S.IconContainer>
             </S.ItemButton>

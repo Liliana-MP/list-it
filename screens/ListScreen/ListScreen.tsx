@@ -20,8 +20,8 @@ import CustomTabBarButton from "../../components/CustomTabBarButton";
 import Header from "../../components/Header";
 import ListButton from "../../components/ListButton";
 import Typography from "../../components/Typography";
-import { auth, db } from "../../firebase";
-import { Item, List } from "../../models/types";
+import { db } from "../../firebase";
+import { Item } from "../../models/types";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
@@ -83,21 +83,33 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
     });
   };
 
-  const setDone = (id: string) => {
+  const setDone = async (id: string) => {
     const tempList = [...onGoingItems];
     const index = tempList.findIndex((item) => item.id === id);
+    let getName = onGoingItems.find((item) => item.id === id)?.name || "";
     const doneItem = tempList.splice(index, 1);
     doneItem[0].done = true;
+
+    await updateDoc(listRef, {
+      [`items.${getName}.done`]: true,
+    });
 
     setDoneItems([...doneItems, ...doneItem]);
     setOnGoingItems(tempList);
   };
 
-  const setOnGoing = (id: string) => {
+  const setOnGoing = async (id: string) => {
     const tempList = [...doneItems];
     const index = tempList.findIndex((item) => item.id === id);
+    let getName = doneItems.find((item) => item.id === id)?.name || "";
+    console.log("name", getName);
     const onGoingItem = tempList.splice(index, 1);
+    console.log("onGoingItem", onGoingItem);
     onGoingItems[0].done = false;
+
+    await updateDoc(listRef, {
+      [`items.${getName}.done`]: false,
+    });
 
     setOnGoingItems([...onGoingItems, ...onGoingItem]);
     setDoneItems(tempList);
@@ -205,6 +217,7 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
                   title={item.name}
                   color="white"
                   onPress={() => setOnGoing(item.id)}
+                  isChecked={true}
                 />
               ))}
           </S.DoneContainer>
