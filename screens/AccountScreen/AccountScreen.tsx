@@ -12,6 +12,7 @@ import {
   deleteUser,
   reauthenticateWithCredential,
   signOut,
+  updateEmail,
 } from "firebase/auth";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
@@ -25,9 +26,7 @@ type AccountScreenProps = NativeStackScreenProps<
 >;
 
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
-  const [showPassword, setShowPassword] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [passwordInput, setPasswordInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
 
   const user = auth.currentUser;
@@ -61,6 +60,15 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
     }
   };
 
+  // const updateAccountInfo = () => {
+  //   if(emailInput != ""){
+  //     updateEmail(auth.currentUser, emailInput)
+  //     .then(() => {
+
+  //     })
+  //   }
+  // };
+
   return (
     <ImageBackground
       source={require("../../assets/images/marble-white.jpg")}
@@ -81,11 +89,6 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
           <InputField placeHolder="First name" />
           <InputField placeHolder="Second name" />
           <InputField placeHolder="Email" />
-          <PasswordInputField
-            placeHolder="Password"
-            showPassword={showPassword}
-            onPress={() => setShowPassword(!showPassword)}
-          />
         </S.InputFieldContainer>
       </S.Container>
       <S.TextButtonContainer>

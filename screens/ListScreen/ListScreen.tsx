@@ -102,10 +102,8 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
     const tempList = [...doneItems];
     const index = tempList.findIndex((item) => item.id === id);
     let getName = doneItems.find((item) => item.id === id)?.name || "";
-    console.log("name", getName);
     const onGoingItem = tempList.splice(index, 1);
-    console.log("onGoingItem", onGoingItem);
-    onGoingItems[0].done = false;
+    onGoingItem[0].done = false;
 
     await updateDoc(listRef, {
       [`items.${getName}.done`]: false,
