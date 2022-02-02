@@ -95,7 +95,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         title={item.name}
         textColor={theme.secondary.color}
         color={theme.color_codes.white}
-        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
+        onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN, item)}
         doneSum={doneSum}
         ongoingSum={ongoingSum}
       />

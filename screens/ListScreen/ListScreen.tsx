@@ -1,6 +1,17 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { deleteField, doc, updateDoc } from "firebase/firestore";
-import React, { useCallback, useEffect, useState } from "react";
+import {
+  collection,
+  deleteField,
+  doc,
+  DocumentData,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { CogIcon } from "react-native-heroicons/outline";
 import Toast from "react-native-toast-message";
@@ -10,11 +21,12 @@ import Header from "../../components/Header";
 import ListButton from "../../components/ListButton";
 import Typography from "../../components/Typography";
 import { auth, db } from "../../firebase";
-import { Item } from "../../models/types";
+import { Item, List } from "../../models/types";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
 import * as S from "./styled";
+import uuid from "react-native-uuid";
 
 type ListScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -26,37 +38,37 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
   const [doneItems, setDoneItems] = useState<Item[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
+  const [listTitle, setListTitle] = useState("");
 
   const { params: list } = route;
-  const { items } = list;
 
   const listRef = doc(db, "lists", list.id);
 
   useEffect(() => {
-    covertToArray();
+    onSnapshot(doc(db, "lists", list.id), (doc) => {
+      let items;
+      const data = doc.data();
+      if (data) {
+        items = data.items;
+        setListTitle(data.name);
+      }
+      const convertedItems = [] as Item[];
+      for (let item in items) {
+        const newItem = {
+          id: items[item].id,
+          name: items[item].name,
+          done: items[item].done,
+        };
+        convertedItems.push(newItem);
+      }
+      setOnGoingItems(convertedItems.filter((item) => item.done === false));
+      setDoneItems(convertedItems.filter((item) => item.done === true));
+    });
   }, []);
-
-  const covertToArray = () => {
-    const convertedItems = [] as Item[];
-
-    for (let item in items) {
-      const newItem = {
-        id: items[item].id,
-        name: items[item].name,
-        done: items[item].done,
-      };
-      convertedItems.push(newItem);
-    }
-    setOnGoingItems(convertedItems.filter((item) => item.done === false));
-    setDoneItems(convertedItems.filter((item) => item.done === true));
-  };
 
   const onDismiss = async (id: string) => {
     const onGoingIndex = onGoingItems.findIndex((item) => item.id === id);
     let getName = onGoingItems.find((item) => item.id === id)?.name || "";
-    const getID = onGoingItems.find((item) => item.id === id)?.id;
-    console.log("getID", getID);
-    console.log("ongoing", onGoingItems);
 
     if (onGoingIndex !== -1) {
       onGoingItems.splice(onGoingIndex, 1);
@@ -91,7 +103,7 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
     setDoneItems(tempList);
   };
 
-  const addItem = () => {
+  const addItem = async () => {
     if (textInput == "") {
       Toast.show({
         type: "error",
@@ -101,13 +113,20 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
         topOffset: 80,
       });
     } else {
-      const newItem = {
-        id: Math.random().toString(),
-        name: textInput,
-        done: false,
-      };
+      await setDoc(
+        listRef,
+        {
+          items: {
+            [textInput]: {
+              id: uuid.v4(),
+              name: textInput,
+              done: false,
+            },
+          },
+        },
+        { merge: true }
+      );
 
-      setOnGoingItems([...onGoingItems, newItem]);
       setTextInput("");
       setModalVisible(!modalVisible);
     }
@@ -141,7 +160,7 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
           </TouchableOpacity>
 
           <S.TopContainer>
-            <Header title="List 1 " color={theme.secondary.color} />
+            <Header title={listTitle} color={theme.secondary.color} />
             <S.ButtonContainer>
               <CustomTabBarButton
                 color={theme.primary.color}
