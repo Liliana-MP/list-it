@@ -98,8 +98,8 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
         <BouncyCheckbox
           onPress={(isChecked: boolean) => {}}
           text="Keep me logged in"
-          textStyle={{ textDecorationLine: "none" }}
-          fillColor={theme.primary.color}
+          textStyle={{ textDecorationLine: "none", color: "black" }}
+          fillColor={theme.secondary.color}
           style={{ marginBottom: 15 }}
         />
         <Button
