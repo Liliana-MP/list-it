@@ -9,7 +9,6 @@ export const Container = styled.View`
 
 export const InputFieldContainer = styled.View`
   margin-top: 40px;
-  margin-bottom: 20px;
 `;
 
 export const VideoBackground = styled(Video)`

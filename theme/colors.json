@@ -15,6 +15,14 @@
     "color": "#044E65",
     "onColor": "#FFF"
   },
+  "secondary_lighter": {
+    "color": "#0788b0",
+    "onColor": "#FFF"
+  },
+  "secondary_alt": {
+    "color": "#046564",
+    "onColor": "#FFF"
+  },
   "background": {
     "color": "#FFF",
     "onColor": "#000"

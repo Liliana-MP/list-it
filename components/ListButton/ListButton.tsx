@@ -23,7 +23,7 @@ interface ListButtonProps {
   type: "list" | "item";
   color?: string;
   onDismiss?: (id: string) => void;
-  id: string;
+  id?: string;
   isChecked?: boolean;
 }
 

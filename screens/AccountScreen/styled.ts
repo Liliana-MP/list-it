@@ -8,11 +8,16 @@ export const Container = styled.View`
 
 export const InputFieldContainer = styled.View`
   margin-top: 40px;
-  margin-bottom: 20px;
+`;
+
+export const PasswordButtonContainer = styled.View`
+  margin: 0px 25px 20px 25px;
 `;
 
 export const TextButtonContainer = styled.View`
-  margin-left: 60px;
+  margin-left: 45px;
+  margin-bottom: 20px;
+  margin-top: 10px;
   align-items: flex-start;
 `;
 

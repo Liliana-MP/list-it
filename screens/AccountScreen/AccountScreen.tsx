@@ -7,13 +7,19 @@ import Header from "../../components/Header";
 import InputField from "../../components/InputField";
 import TextButton from "../../components/TextButton";
 import { auth, db } from "../../firebase";
-import { deleteUser, signOut, updateEmail } from "firebase/auth";
+import {
+  deleteUser,
+  sendPasswordResetEmail,
+  signOut,
+  updateEmail,
+} from "firebase/auth";
 import { ScreenRoute } from "../../navigation/constants";
 import { RootStackParamList } from "../../navigation/types";
 import theme from "../../theme";
 import * as S from "./styled";
 import Toast from "react-native-toast-message";
-import { doc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
+import ListButton from "../../components/ListButton";
 
 type AccountScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -22,7 +28,10 @@ type AccountScreenProps = NativeStackScreenProps<
 
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [passwordResetVisible, setPasswordResetVisible] = useState(false);
   const [emailInput, setEmailInput] = useState("");
+  const [firstNameInput, setFirstNameInput] = useState("");
+  const [lastNameInput, setLastNameInput] = useState("");
 
   const user = auth.currentUser;
 
@@ -55,25 +64,86 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
     }
   };
 
-  const updateAccountInfo = () => {
-    if (emailInput != "" && user != null) {
-      // const userRef = doc(db, "users", user.email);
+  const updateAccountInfo = async () => {
+    if (emailInput === "" && firstNameInput === "" && lastNameInput === "") {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "No changes were made",
+      });
+    } else {
+      if (user !== null && user.email !== null) {
+        const userRef = doc(db, "users", user.email);
+        if (emailInput !== "" && user !== null && user.email !== null) {
+          updateEmail(user, emailInput)
+            .then(() => {
+              setEmailInput("");
+              Toast.show({
+                type: "Success",
+                text1: "Email updated",
+              });
+            })
+            .catch((error) => {
+              if (error.code === "auth/requires-recent-login") {
+                navigation.navigate(ScreenRoute.LOGIN_SCREEN);
+              }
+              Toast.show({
+                type: "error",
+                text1: "Requires recent login",
+                text2: "Please login again",
+              });
+            });
 
-      updateEmail(user, emailInput)
+          await updateDoc(userRef, {
+            email: emailInput,
+          });
+        }
+        if (firstNameInput !== "") {
+          await updateDoc(userRef, {
+            firstname: firstNameInput,
+          }).then(() => {
+            setFirstNameInput("");
+            Toast.show({
+              type: "success",
+              text1: "Success",
+              text2: "First name updated",
+            });
+          });
+        }
+        if (lastNameInput !== "") {
+          await updateDoc(userRef, {
+            lastname: lastNameInput,
+          }).then(() => {
+            setLastNameInput("");
+            Toast.show({
+              type: "success",
+              text1: "Success",
+              text2: "Last name updated",
+            });
+          });
+        }
+      }
+    }
+  };
+
+  const resetPassword = () => {
+    if (user?.email) {
+      sendPasswordResetEmail(auth, user.email)
         .then(() => {
           Toast.show({
-            type: "Success",
-            text1: "Email updated",
+            type: "success",
+            text1: "Password reset email sent",
+            text2: "Check your email inbox or spambox ",
           });
         })
         .catch((error) => {
           Toast.show({
             type: "error",
-            text1: "Error",
-            text2: error.message,
+            text1: error.message,
           });
         });
     }
+    setPasswordResetVisible(!passwordResetVisible);
   };
 
   return (
@@ -89,15 +159,43 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
         title="Delete account?"
         onPress={deleteAccount}
       />
+      <DeleteAccModal
+        color={theme.secondary_lighter.color}
+        modalVisible={passwordResetVisible}
+        setModalVisible={setPasswordResetVisible}
+        title="Send reset password email?"
+        onPress={resetPassword}
+      />
 
       <S.Container>
         <Header title="Account Screen" color={theme.secondary.color} />
         <S.InputFieldContainer>
-          <InputField placeHolder="First name" />
-          <InputField placeHolder="Last name" />
-          <InputField placeHolder="Email" />
+          <InputField
+            placeHolder="First name"
+            value={firstNameInput}
+            onChangeText={(text) => setFirstNameInput(text)}
+          />
+          <InputField
+            placeHolder="Last name"
+            value={lastNameInput}
+            onChangeText={(text) => setLastNameInput(text)}
+          />
+          <InputField
+            placeHolder="Email"
+            value={emailInput}
+            onChangeText={(text) => setEmailInput(text)}
+          />
         </S.InputFieldContainer>
       </S.Container>
+      <S.PasswordButtonContainer>
+        <ListButton
+          type="list"
+          title="Change Password"
+          onPress={() => {
+            setPasswordResetVisible(!passwordResetVisible);
+          }}
+        />
+      </S.PasswordButtonContainer>
       <S.TextButtonContainer>
         <TextButton
           color="red"
@@ -115,9 +213,7 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
             title="Save"
             color={theme.primary.color}
             textColor={theme.secondary.onColor}
-            onPress={() => {
-              console.log("clickkk");
-            }}
+            onPress={updateAccountInfo}
           />
         </S.SaveButtonContainer>
         <Button
