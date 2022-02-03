@@ -41,6 +41,11 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
         .then(() => {
           addUser();
           navigation.navigate(ScreenRoute.MAIN_SCREEN);
+          setEmail("");
+          setFirstName("");
+          setLastName("");
+          setPassword("");
+          setConfirmPassword("");
         })
         .catch((error) => {
           Toast.show({

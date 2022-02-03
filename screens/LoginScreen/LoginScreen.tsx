@@ -42,6 +42,8 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         navigation.navigate(ScreenRoute.MAIN_SCREEN);
+        setEmail("");
+        setPassword("");
       })
       .catch((error) => {
         Toast.show({
