@@ -137,9 +137,13 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
           });
         })
         .catch((error) => {
+          if (error.code === "auth/requires-recent-login") {
+            navigation.navigate(ScreenRoute.LOGIN_SCREEN);
+          }
           Toast.show({
             type: "error",
-            text1: error.message,
+            text1: "Error",
+            text2: error.message,
           });
         });
     }

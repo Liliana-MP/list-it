@@ -71,13 +71,10 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
     let getName = onGoingItems.find((item) => item.id === id)?.name || "";
 
     if (onGoingIndex !== -1) {
-      console.log("HEJ HEJ 2");
       onGoingItems.splice(onGoingIndex, 1);
     } else {
-      console.log("HEJ HEJ");
       const doneIndex = doneItems.findIndex((item) => item.id === id);
       getName = doneItems.find((item) => item.id === id)?.name || "";
-      console.log("getName", getName);
       doneItems.splice(doneIndex, 1);
     }
 
@@ -219,6 +216,7 @@ const ListScreen = ({ navigation, route }: ListScreenProps) => {
                   color="white"
                   onPress={() => setOnGoing(item.id)}
                   isChecked={true}
+                  onDismiss={onDismiss}
                 />
               ))}
           </S.DoneContainer>
