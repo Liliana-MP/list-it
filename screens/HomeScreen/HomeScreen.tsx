@@ -121,15 +121,6 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           horizontal
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-          ListEmptyComponent={
-            <Button
-              type="square"
-              title="Create new list"
-              textColor={theme.secondary.color}
-              color={theme.color_codes.white}
-              onPress={() => navigation.navigate(ScreenRoute.LIST_SCREEN)}
-            />
-          }
           showsHorizontalScrollIndicator={false}
         />
       </S.Container>
