@@ -15,7 +15,9 @@ import ListButton from "../../components/ListButton";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   collection,
+  doc,
   DocumentData,
+  getDoc,
   getDocs,
   query,
   where,
@@ -27,36 +29,27 @@ type HomeScreenProps = NativeStackScreenProps<
   ScreenRoute.MAIN_SCREEN
 >;
 
-const listItems = [
-  { id: "1", name: "Milk", done: false },
-  { id: "2", name: "Honey", done: false },
-  { id: "3", name: "Pears", done: true },
-  {
-    id: "4",
-    name: "Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk Milk ",
-    done: false,
-  },
-];
-
-const listButtons = [
-  { id: "1", name: "Home", items: listItems },
-  { id: "2", name: "Random", items: listItems },
-  { id: "3", name: "Vacation", items: listItems },
-  { id: "4", name: "Groceries", items: listItems },
-  { id: "5", name: "Obi", items: listItems },
-  { id: "6", name: "Computer parts" },
-  { id: "7", name: "My christmas list" },
-  { id: "8", name: "Random" },
-];
-
 const user = { id: "1", firstName: "Liliana", lastName: "Montini Pitra" };
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const [allLists, setAllLists] = useState<List[]>([]);
+  const [userName, setUserName] = useState("");
+  const user = auth.currentUser;
 
   useEffect(() => {
     getData();
+    getUser();
   }, []);
+
+  const getUser = async () => {
+    if (user !== null && user.email !== null) {
+      const userRef = doc(db, "users", user.email);
+      const getUser = await getDoc(userRef);
+
+      const getName = getUser.data().firstname;
+      setUserName(getName);
+    }
+  };
 
   const getData = () => {
     const listRef = collection(db, "lists");
@@ -119,7 +112,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       <S.TitleContainer>
         <S.Title> List It </S.Title>
       </S.TitleContainer>
-      <UpdateBox userName={user.firstName} />
+      <UpdateBox userName={userName} />
 
       <S.Container>
         <FlatList

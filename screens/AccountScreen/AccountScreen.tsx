@@ -29,7 +29,6 @@ type AccountScreenProps = NativeStackScreenProps<
 const AccountScreen = ({ navigation }: AccountScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordResetVisible, setPasswordResetVisible] = useState(false);
-  const [emailInput, setEmailInput] = useState("");
   const [firstNameInput, setFirstNameInput] = useState("");
   const [lastNameInput, setLastNameInput] = useState("");
 
@@ -65,7 +64,7 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
   };
 
   const updateAccountInfo = async () => {
-    if (emailInput === "" && firstNameInput === "" && lastNameInput === "") {
+    if (firstNameInput === "" && lastNameInput === "") {
       Toast.show({
         type: "error",
         text1: "Error",
@@ -74,30 +73,6 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
     } else {
       if (user !== null && user.email !== null) {
         const userRef = doc(db, "users", user.email);
-        if (emailInput !== "" && user !== null && user.email !== null) {
-          updateEmail(user, emailInput)
-            .then(() => {
-              setEmailInput("");
-              Toast.show({
-                type: "Success",
-                text1: "Email updated",
-              });
-            })
-            .catch((error) => {
-              if (error.code === "auth/requires-recent-login") {
-                navigation.navigate(ScreenRoute.LOGIN_SCREEN);
-              }
-              Toast.show({
-                type: "error",
-                text1: "Requires recent login",
-                text2: "Please login again",
-              });
-            });
-
-          await updateDoc(userRef, {
-            email: emailInput,
-          });
-        }
         if (firstNameInput !== "") {
           await updateDoc(userRef, {
             firstname: firstNameInput,
@@ -183,11 +158,6 @@ const AccountScreen = ({ navigation }: AccountScreenProps) => {
             placeHolder="Last name"
             value={lastNameInput}
             onChangeText={(text) => setLastNameInput(text)}
-          />
-          <InputField
-            placeHolder="Email"
-            value={emailInput}
-            onChangeText={(text) => setEmailInput(text)}
           />
         </S.InputFieldContainer>
       </S.Container>

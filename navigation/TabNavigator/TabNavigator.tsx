@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../../screens/HomeScreen";
 import { RootTabParamList } from "../types";
-import { ScreenRoute, TabRoute } from "../constants";
+import { TabRoute } from "../constants";
 import AllListsScreen from "../../screens/AllListsScreen/AllListsScreen";
 import {
   HomeIcon,
