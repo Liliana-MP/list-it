@@ -36,24 +36,32 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
   };
 
   const signUp = () => {
-    if (password === confirmPassword) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          addUser();
-          navigation.navigate(ScreenRoute.MAIN_SCREEN);
-          setEmail("");
-          setFirstName("");
-          setLastName("");
-          setPassword("");
-          setConfirmPassword("");
-        })
-        .catch((error) => {
-          Toast.show({
-            type: "error",
-            text1: "Error",
-            text2: error.message,
+    if (password === confirmPassword && password !== "") {
+      if (firstName !== "" && lastName !== "" && email !== "") {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then(() => {
+            addUser();
+            navigation.navigate(ScreenRoute.MAIN_SCREEN);
+            setEmail("");
+            setFirstName("");
+            setLastName("");
+            setPassword("");
+            setConfirmPassword("");
+          })
+          .catch((error) => {
+            Toast.show({
+              type: "error",
+              text1: "Error",
+              text2: error.message,
+            });
           });
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Fields might be empty",
+          text2: "Try again",
         });
+      }
     } else {
       Toast.show({
         type: "error",
