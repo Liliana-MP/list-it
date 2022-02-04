@@ -105,13 +105,6 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
         />
       </S.InputFieldContainer>
       <S.ButtonContainer>
-        <BouncyCheckbox
-          onPress={(isChecked: boolean) => {}}
-          text="Keep me logged in"
-          textStyle={{ textDecorationLine: "none", color: "black" }}
-          fillColor={theme.secondary.color}
-          style={{ marginBottom: 15 }}
-        />
         <Button
           type="regular"
           title="Sign in"
@@ -126,7 +119,9 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
           textColor={theme.secondary.onColor}
           onPress={() => navigation.navigate(ScreenRoute.SIGNUP_SCREEN)}
         />
-        <Textbutton buttonText="Forgot Password" onPress={forgotPassword} />
+        <S.TextButtonContainer>
+          <Textbutton buttonText="Forgot Password" onPress={forgotPassword} />
+        </S.TextButtonContainer>
       </S.ButtonContainer>
     </S.Container>
   );

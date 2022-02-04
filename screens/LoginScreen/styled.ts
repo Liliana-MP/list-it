@@ -30,3 +30,7 @@ export const Title = styled.Text`
 export const ButtonContainer = styled.View`
   margin: 100px;
 `;
+
+export const TextButtonContainer = styled.View`
+  margin-top: 20px;
+`;
