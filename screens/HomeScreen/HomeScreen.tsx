@@ -19,6 +19,7 @@ import {
   DocumentData,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   where,
 } from "firebase/firestore";
@@ -29,8 +30,6 @@ type HomeScreenProps = NativeStackScreenProps<
   ScreenRoute.MAIN_SCREEN
 >;
 
-const user = { id: "1", firstName: "Liliana", lastName: "Montini Pitra" };
-
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const [allLists, setAllLists] = useState<List[]>([]);
   const [userName, setUserName] = useState("");
@@ -40,16 +39,6 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     getData();
     getUser();
   }, []);
-
-  const getUser = async () => {
-    if (user !== null && user.email !== null) {
-      const userRef = doc(db, "users", user.email);
-      const getUser = await getDoc(userRef);
-
-      const getName = getUser.data().firstname;
-      setUserName(getName);
-    }
-  };
 
   const getData = () => {
     const listRef = collection(db, "lists");
@@ -65,6 +54,18 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       );
       setAllLists(dataArray as List[]);
     });
+  };
+
+  const getUser = async () => {
+    if (user !== null && user.email !== null) {
+      const userRef = doc(db, "users", user.email);
+      const getUser = await getDoc(userRef);
+      const data = getUser.data();
+      if (data !== undefined) {
+        const getName = data.firstname;
+        setUserName(getName);
+      }
+    }
   };
 
   const renderItem = ({ item }: { item: List }) => {

@@ -42,6 +42,7 @@ const Tabs = () => {
           name={TabRoute.HOME_SCREEN}
           component={HomeScreen}
           options={{
+            unmountOnBlur: true,
             tabBarIcon: ({ focused }) => {
               return focused ? (
                 <HomeIcon color={theme.primary.color} size={35} />
