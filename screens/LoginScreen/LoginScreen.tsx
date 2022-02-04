@@ -64,11 +64,19 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
         });
       })
       .catch((error) => {
-        Toast.show({
-          type: "error",
-          text1: "Error",
-          text2: error.message,
-        });
+        if (email === "") {
+          Toast.show({
+            type: "error",
+            text1: "Email field empty",
+            text2: "Please enter your email",
+          });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Error",
+            text2: error.message,
+          });
+        }
       });
   };
   return (
